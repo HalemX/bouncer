@@ -1,0 +1,40 @@
+///  Border Mixin
+///  Border Main Properties
+@mixin border($size, $style, $color, $opacity, $rad) {
+  border: $size $style;
+  border-color: rgba($color, $opacity);
+  border-radius: $rad;
+}
+
+@mixin border-bottom($size, $style, $opacity) {
+  border-bottom: $size $style;
+  border-bottom-color: rgba(#c1c8ce, $opacity);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+///  Overlay Mixin
+///  Overlay Main Properties
+@mixin overlay($color, $opacity) {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 10;
+  background-color: rgba($color, $opacity);
+}
+@mixin overlay-test($color, $opacity) {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  background-color: rgba($color, $opacity);
+}
+
+/// Position Mixin
+/// Handle photo card position
+@mixin handle-position($top, $right) {
+  top: $top;
+  right: $right;
+}
