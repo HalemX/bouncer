@@ -11,6 +11,7 @@
       class="main p-3 mb-3"
     ></main-product>
     <FilterProducts />
+    <div class="test"></div>
   </div>
 </template>
 
