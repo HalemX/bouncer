@@ -1,7 +1,9 @@
 <template>
-  <div class="main-section">
-    <MainSectionProduct />
-    <main-cards></main-cards>
+  <div>
+    <div class="main-section">
+      <MainSectionProduct />
+      <main-cards></main-cards>
+    </div>
   </div>
 </template>
 
@@ -16,3 +18,9 @@ export default {
   },
 };
 </script>
+
+<style scoped lang="scss">
+.main-section {
+  height: 82vh;
+}
+</style>

@@ -6,7 +6,7 @@
       textButton="SHOP NOW"
       image-src="pic.png"
       second="second"
-      width="width"
+      products="products"
       handle-align="handleAlign"
       class="main p-3 mb-3"
     ></main-product>

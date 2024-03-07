@@ -1,7 +1,7 @@
 <template>
   <div class="container-filter-products">
     <div
-      class="filter d-flex align-items-center justify-content-between p-3 mb-3 rounded"
+      class="filter-products d-flex align-items-center justify-content-between p-3 mb-3 rounded"
     >
       <div class="filter-details d-flex align-items-center">
         <div class="num-items d-none align-items-center me-5 d-lg-flex">
@@ -142,7 +142,7 @@ export default {
 </script>
 
 <style lang="scss">
-.filter {
+.filter-products {
   background-color: $background_second_card_border;
 }
 .backdrop {

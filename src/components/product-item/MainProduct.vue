@@ -18,13 +18,8 @@
         }}</base-button>
       </div>
 
-      <div class="img-position">
-        <img
-          :src="dynamicImagePath"
-          alt="Product Image"
-          class="img-fluid"
-          :class="width"
-        />
+      <div class="img-product" :class="products">
+        <img :src="dynamicImagePath" alt="Product Image" class="img-fluid" />
       </div>
     </div>
   </div>
@@ -42,10 +37,9 @@ export default {
     "paragraph",
     "textButton",
     "imageSrc",
-    "imgPosition",
     "primary",
     "second",
-    "width",
+    "products",
     "handleAlign",
   ],
 
@@ -78,9 +72,9 @@ export default {
 }
 .primary {
   background-image: linear-gradient(
-    to top right,
-    $primary_color,
-    $second_color_background_home
+    to right,
+    $second_color_background_home,
+    $primary_color
   );
   @media ($min_sm) {
     img {
@@ -88,10 +82,11 @@ export default {
     }
   }
 
-  .img-position {
+  .img-product {
     transform: translateX(-50px);
   }
 }
+
 .second {
   background-color: $second_color;
   margin-bottom: 3rem;
@@ -104,19 +99,23 @@ export default {
     }
   }
 }
-.width {
-  width: 380px !important;
-  transform: translateY(15px) !important;
-  @media (max-width: 767px) {
-    width: 250px !important;
-    transform: translate(120px, -20px) !important;
-  }
-  @media (max-width: 437px) {
-    width: 250px !important;
-    transform: translate(50px, -20px) !important;
-  }
-}
 .handleAlign {
   align-items: start !important;
+}
+
+.products {
+  img {
+    width: 380px !important;
+    transform: translateY(15px) !important;
+  }
+  @media ($max_sm) {
+    width: 100%;
+    max-height: 100%;
+    text-align: center;
+    img {
+      width: 300px !important;
+      transform: translateY(0px) !important;
+    }
+  }
 }
 </style>

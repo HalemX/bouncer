@@ -28,7 +28,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .filter-container::-webkit-scrollbar {
   display: none;
 }
