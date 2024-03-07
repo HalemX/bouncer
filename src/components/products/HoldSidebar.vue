@@ -1,5 +1,7 @@
 <template>
-  <SideBar hold="hold" />
+  <div class="container-sidebar position-sticky mb-5">
+    <SideBar showLargeScreen="show" />
+  </div>
 </template>
 
 <script>
@@ -10,3 +12,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.container-sidebar {
+  top: 15px;
+}
+</style>
