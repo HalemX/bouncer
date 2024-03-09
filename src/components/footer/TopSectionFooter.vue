@@ -16,17 +16,34 @@
         Since the 1500s, when an unknown printer took a galley of type and
         scrambled.
       </p>
-      <p>icons</p>
+      <div class="icons d-flex align-items-center mt-4">
+        <Icon icon="logos:facebook" width="1.7rem" class="me-5" />
+        <Icon icon="logos:twitter" width="1.7rem" />
+      </div>
     </div>
     <div class="third-part">
       <h4 class="mb-3">Contact Us</h4>
-      <p>
-        My Company , 4578 Marmora Road, Glasgow D04 89GR Call us now:
-        0123-456-789 Email: support@whatever.com
-      </p>
+      <div>
+        <span class="d-block text-nowrap"
+          >My Company , 4578 Marmora Road, Glasgow</span
+        >
+        <span class="d-block text-nowrap">D04 89GR</span>
+        <span class="d-block text-nowrap">Call us now: 0123-456-789</span>
+        <span class="d-block text-nowrap">Email: support@whatever.com</span>
+      </div>
     </div>
   </div>
 </template>
+
+<script>
+import { Icon } from "@iconify/vue";
+
+export default {
+  components: {
+    Icon,
+  },
+};
+</script>
 
 <style lang="scss" scoped>
 .top-footer-section {

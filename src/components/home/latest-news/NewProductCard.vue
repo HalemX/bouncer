@@ -1,14 +1,10 @@
 <template>
-  <div class="all-data-new-product">
+  <div class="card-data">
     <div
-      class="new-product mb-lg-0 mb-2 px-2 d-flex align-items-center flex-column flex-sm-row"
+      class="new-product px-2 d-flex align-items-center flex-column flex-sm-row"
     >
       <div class="image-new-product">
-        <img
-          src="../../../assets/images/Rectangle1.png"
-          alt=""
-          class="img-fluid"
-        />
+        <img src="@/assets/images/Rectangle1.png" alt="" class="img-fluid" />
       </div>
       <div class="info-new-product text-center text-sm-start ms-3 py-4">
         <span class="d-block mb-2">01 Jan, 2015</span>
@@ -33,7 +29,9 @@
     }
   }
   .image-new-product {
-    width: 500px;
+    img {
+      width: 200px;
+    }
   }
 }
 </style>

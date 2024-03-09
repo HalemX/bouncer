@@ -3,10 +3,10 @@
     <div
       class="d-flex justify-content-center flex-column align-items-start align-items-lg-center"
     >
-      <h1 class="heading-categories mb-0 mt-2 mb-lg-3">Bouncer</h1>
+      <h1 class="heading-categories mb-4">Bouncer</h1>
 
       <ul
-        class="links-categories list-unstyled d-flex flex-column flex-lg-row mt-4 text-start text-lg-center"
+        class="links-categories list-unstyled d-flex flex-column flex-lg-row mb-4 text-start text-lg-center"
       >
         <li v-for="data in dataLinks" :key="data">
           <router-link

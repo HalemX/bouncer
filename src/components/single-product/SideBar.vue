@@ -8,9 +8,16 @@
       </div>
 
       <div
-        class="third-card card-height overflow-hidden position-relative mt-5 ms-3"
+        class="side-bar card-height overflow-hidden position-relative mt-5 ms-3"
       >
-        <ThirdCard sideBar="sideBar" />
+        <LandingCard
+          sidebar="sidebar"
+          :name="landingCardData.name"
+          :price="landingCardData.price"
+          :img-name="landingCardData.img"
+        >
+          <p>Lorem Ipsum dolor sit amet, consectetur adipiscing elit, labor</p>
+        </LandingCard>
       </div>
     </div>
   </div>
@@ -18,12 +25,21 @@
 
 <script>
 import SliderProductItem from "../product-item/SliderProductItem.vue";
-import ThirdCard from "../home/main-section/ThirdCard.vue";
+import LandingCard from "../home/landing/LandingCard.vue";
 
 export default {
   components: {
     SliderProductItem,
-    ThirdCard,
+    LandingCard,
+  },
+  setup() {
+    const landingCardData = {
+      name: "GoPro Hero 6",
+      price: "$299",
+      img: "50051823_540375",
+    };
+
+    return { landingCardData };
   },
 };
 </script>
@@ -34,7 +50,7 @@ export default {
   .header-sidebar {
     color: $background_third_card;
   }
-  .third-card {
+  .side-bar {
     height: 480px;
     background-color: $background_third_card;
   }

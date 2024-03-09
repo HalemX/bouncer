@@ -1,5 +1,5 @@
 <template>
-  <div class="hold-checkout">
+  <div class="container-checkout">
     <BreadCrumb />
     <MainCheckOut />
   </div>

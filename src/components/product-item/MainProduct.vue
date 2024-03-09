@@ -8,7 +8,7 @@
       :class="handleAlign"
     >
       <div class="info-product text-white w-50">
-        <h2 class="mb-4 mt-5">{{ heading }}</h2>
+        <h2 class="product-name mb-4 mt-5 text-nowrap">{{ heading }}</h2>
 
         <p class="w-75">
           {{ paragraph }}
@@ -55,18 +55,25 @@ export default {
 <style lang="scss" scoped>
 .main-product {
   height: 610px;
-}
-.info-img-product {
-  @media ($max_sm) {
-    .info-product {
-      text-align: center;
-      width: 100% !important;
-      margin-top: 5rem;
+
+  .info-img-product {
+    .product-name {
+      font-size: 60px;
     }
-  }
-  @media ($max_md) {
-    p {
-      width: 100% !important;
+    @media ($max_sm) {
+      .info-product {
+        text-align: center;
+        width: 100% !important;
+        margin-top: 5rem;
+      }
+    }
+    @media ($max_md) {
+      .product-name {
+        font-size: 40px;
+      }
+      p {
+        width: 100% !important;
+      }
     }
   }
 }

@@ -5,19 +5,19 @@
     :initial="{ opacity: 0, y: 100 }"
     :visibleOnce="{ opacity: 1, y: 0 }"
   >
-    <filter-best-seller></filter-best-seller>
-    <HoldProduct />
+    <BestsellerFilter />
+    <BestsellerProducts />
   </div>
 </template>
 
 <script>
-import FilterBestSeller from "./FilterBestSeller.vue";
-import HoldProduct from "./HoldProduct.vue";
+import BestsellerFilter from "./BestsellerFilter.vue";
+import BestsellerProducts from "./BestsellerProducts.vue";
 
 export default {
   components: {
-    FilterBestSeller,
-    HoldProduct,
+    BestsellerFilter,
+    BestsellerProducts,
   },
 };
 </script>

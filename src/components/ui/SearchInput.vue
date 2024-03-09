@@ -24,6 +24,9 @@ input {
   padding: 1rem 1.5rem;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
+  @media ($max_sm) {
+    padding: 1rem 1rem !important;
+  }
 }
 button {
   border: 1px solid $second_color;
@@ -32,6 +35,9 @@ button {
   background-color: $second_color;
   color: white;
   border-top-right-radius: 5px;
+  @media ($max_sm) {
+    padding: 1rem 1rem !important;
+  }
 }
 
 @media ($max_sm) {

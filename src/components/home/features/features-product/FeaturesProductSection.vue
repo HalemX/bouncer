@@ -1,36 +1,42 @@
 <template>
   <div
-    class="hold-product row g-3 text-center"
+    class="features-product-container container text-center mb-5"
     v-motion
     :initial="{ opacity: 0, y: 100 }"
     :visibleOnce="{ opacity: 1, y: 0 }"
   >
-    <div
-      class="container-product col-lg-4 col-sm-6 auto"
-      v-for="i in 3"
-      :key="i"
-    >
-      <product-item
-        row="row"
-        column-small-screen="column"
-        :image-name="dataObj.imageName"
-        :heading="dataObj.heading"
-      >
-      </product-item>
+    <div class="heading mb-4">
+      <h2>FEATURED PRODUCTS</h2>
     </div>
 
-    <div class="col-12 mt-5">
-      <SearchInput
-        place-holder="Search query..."
-        text-btn="Search"
-        search="search"
-      />
+    <div class="features-product-container row g-3 text-center">
+      <div
+        class="feature-product col-lg-4 col-sm-6 auto"
+        v-for="i in 3"
+        :key="i"
+      >
+        <product-item
+          row="row"
+          column-small-screen="column"
+          :image-name="dataObj.imageName"
+          :heading="dataObj.heading"
+        >
+        </product-item>
+      </div>
+
+      <div class="mt-4">
+        <SearchInput
+          place-holder="Search query..."
+          text-btn="Search"
+          search="search"
+        />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import ProductItem from "@/components/product-item/ProductItem";
+import ProductItem from "@/components/product-item/ProductItem.vue";
 import SearchInput from "@/components/ui/SearchInput.vue";
 
 export default {
@@ -38,7 +44,6 @@ export default {
     ProductItem,
     SearchInput,
   },
-
   setup() {
     const dataObj = {
       imageName: "slider1.png",

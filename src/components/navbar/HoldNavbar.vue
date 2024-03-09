@@ -22,7 +22,7 @@
     </teleport>
 
     <nav
-      class="navbar-container d-flex justify-content-between align-items-center py-3"
+      class="navbar-container mb-4 d-flex justify-content-between align-items-center py-3"
     >
       <div class="navbar-select-button d-flex">
         <select-button firstOption="EN" secondOption="AR"></select-button>

@@ -22,7 +22,7 @@
 
     <div class="price-info-product py-4 pe-5">
       <div class="price mb-4">
-        <PriceCmpo priceAfterDiscount="$499" priceBefore="$599" />
+        <ProductPriceCmpo priceAfterDiscount="$499" priceBefore="$599" />
       </div>
 
       <div class="info-product">
@@ -97,7 +97,7 @@
 
 <script>
 import IconRate from "../ui/IconsRate.vue";
-import PriceCmpo from "../product-item/PriceCmpo.vue";
+import ProductPriceCmpo from "../product-item/ProductPriceCmpo.vue";
 import ColorsFilter from "../ui/ColorsFilter.vue";
 import SelectButton from "../ui/SelectButton.vue";
 import PlatformBtns from "../ui/PlatformBtns.vue";
@@ -110,7 +110,7 @@ export default {
   components: {
     Icon,
     IconRate,
-    PriceCmpo,
+    ProductPriceCmpo,
     ColorsFilter,
     SelectButton,
     PlatformBtns,
@@ -163,3 +163,4 @@ export default {
   }
 }
 </style>
+../product-item/ProductPriceCmpo.vue

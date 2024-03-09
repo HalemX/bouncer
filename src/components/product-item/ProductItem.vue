@@ -34,7 +34,7 @@
             <IconRate />
           </div>
 
-          <PriceCmpo priceAfterDiscount="$499" priceBefore="$599" />
+          <ProductPriceCmpo priceAfterDiscount="$499" priceBefore="$599" />
         </div>
       </router-link>
     </div>
@@ -43,14 +43,14 @@
 </template>
 
 <script>
-import PriceCmpo from "./PriceCmpo.vue";
+import ProductPriceCmpo from "./ProductPriceCmpo.vue";
 import IconRate from "../ui/IconsRate.vue";
 import { Icon } from "@iconify/vue";
 
 export default {
   props: ["column", "row", "imageName", "heading", "columnSmallScreen"],
   components: {
-    PriceCmpo,
+    ProductPriceCmpo,
     IconRate,
     Icon,
   },
@@ -112,3 +112,4 @@ export default {
   }
 }
 </style>
+./ProductPriceCmpo.vue
