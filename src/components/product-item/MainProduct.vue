@@ -97,6 +97,7 @@ export default {
 .second {
   background-color: $second_color;
   margin-bottom: 3rem;
+  padding: 2rem !important;
   img {
     transform: translateY(20px);
   }

@@ -1,5 +1,5 @@
 <template>
-  <div class="container-sidebar position-sticky mb-5">
+  <div class="container-sidebar position-sticky mb-5 d-none d-lg-block">
     <SideBar showLargeScreen="show" />
   </div>
 </template>

@@ -1,5 +1,5 @@
 <template>
-  <div class="container-breadcrumb p-2 my-5">
+  <div class="container-breadcrumb p-2 mt-5 mb-3">
     <div
       class="flex-column flex-sm-row d-flex align-items-center justify-content-center pt-3"
     >

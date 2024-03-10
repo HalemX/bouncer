@@ -36,7 +36,7 @@ export default {
   }
 }
 
-@media (max-width: 380px) {
+@media (max-width: 450px) {
   .li-search {
     width: 100% !important;
   }
