@@ -2,6 +2,7 @@
   <Icon
     v-for="i in 5"
     :key="i"
+    :class="{ fillRate: i <= numRate }"
     icon="radix-icons:star-filled"
     width="1rem"
     class="icon me-1"
@@ -12,6 +13,7 @@
 import { Icon } from "@iconify/vue";
 
 export default {
+  props: ["numRate"],
   components: {
     Icon,
   },
@@ -19,10 +21,13 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.icon:not(:last-child) {
-  color: #ffc600;
-}
-.icon:last-child {
+// .icon:not(:last-child) {
+//   color: #ffc600;
+// }
+.icon {
   color: $background_third_card;
+}
+.fillRate {
+  color: #ffc600 !important;
 }
 </style>

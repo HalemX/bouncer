@@ -7,7 +7,7 @@
         class="rate d-flex flex-column flex-sm-row align-items-start align-items-sm-center"
       >
         <div class="icons mb-2 mb-sm-0">
-          <IconRate />
+          <IconRate :num-rate="2" />
         </div>
 
         <div class="reviews d-flex flex-column flex-sm-row ms-0 ms-sm-3">

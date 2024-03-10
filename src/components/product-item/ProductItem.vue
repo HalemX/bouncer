@@ -31,7 +31,7 @@
           <p class="fw-bold text-dark">{{ heading }}</p>
 
           <div class="icons">
-            <IconRate />
+            <IconRate :numRate="3" />
           </div>
 
           <ProductPriceCmpo priceAfterDiscount="$499" priceBefore="$599" />
@@ -47,6 +47,8 @@ import ProductPriceCmpo from "./ProductPriceCmpo.vue";
 import IconRate from "../ui/IconsRate.vue";
 import { Icon } from "@iconify/vue";
 
+import { onMounted } from "vue";
+
 export default {
   props: ["column", "row", "imageName", "heading", "columnSmallScreen"],
   components: {
@@ -57,6 +59,13 @@ export default {
 
   setup(props) {
     const imgSrc = require(`@/assets/images/${props.imageName}`);
+
+    onMounted(async () => {
+      const response = await fetch("https://fakestoreapi.com/products");
+
+      const result = await response.json();
+      console.log(result);
+    });
 
     return { imgSrc };
   },

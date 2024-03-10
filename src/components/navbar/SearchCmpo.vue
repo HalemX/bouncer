@@ -4,7 +4,7 @@
     :class="{ 'd-sm-none mb-2': bottom, 'd-none d-sm-flex d-lg-none': top }"
   >
     <li class="li-search d-flex w-75 text-center">
-      <div class="search-container w-100">
+      <div class="search-container w-100 me-2">
         <input
           class="search-input px-2 py-1 w-100"
           type="text"
