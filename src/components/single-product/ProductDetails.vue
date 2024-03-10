@@ -65,10 +65,10 @@
       <div class="counter">
         <CounterBtn />
       </div>
-      <router-link :to="{ name: 'checkOut' }">
-        <div class="add-cart-love d-flex align-items-center">
+      <div class="add-cart-love d-flex align-items-center">
+        <router-link :to="{ name: 'cart' }">
           <button
-            class="add-cart d-flex align-items-center border-0 p-3 me-3 w-100 justify-content-center"
+            class="add-cart d-flex align-items-center border-0 p-3 me-3 justify-content-center"
           >
             <Icon
               icon="material-symbols:shopping-cart-outline-sharp"
@@ -76,16 +76,16 @@
             ></Icon>
             <p class="mb-0 ms-2">Add To Cart</p>
           </button>
+        </router-link>
 
-          <div class="love p-3" @click="loved = !loved">
-            <Icon
-              :icon="!loved ? 'icon-park-outline:like' : 'icon-park-solid:like'"
-              width="1.5rem"
-              :key="loved"
-            ></Icon>
-          </div>
+        <div class="love p-3" @click="loved = !loved">
+          <Icon
+            :icon="!loved ? 'icon-park-outline:like' : 'icon-park-solid:like'"
+            width="1.5rem"
+            :key="loved"
+          ></Icon>
         </div>
-      </router-link>
+      </div>
     </div>
 
     <div class="platform-btns py-4 d-flex flex-wrap flex-sm-nowrap">
@@ -147,9 +147,17 @@ export default {
 
   .counter-add-cart {
     @media (max-width: 460px) {
-      .counter,
+      .counter {
+        width: 100% !important;
+      }
       .add-cart-love {
         width: 100%;
+        a {
+          width: 100% !important;
+          button {
+            width: 95%;
+          }
+        }
       }
     }
 
@@ -163,4 +171,3 @@ export default {
   }
 }
 </style>
-../product-item/ProductPriceCmpo.vue

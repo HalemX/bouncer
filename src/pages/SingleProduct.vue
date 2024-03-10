@@ -1,13 +1,12 @@
 <template>
   <div class="container-details-product">
-    <BreadCrumb />
+    <BreadCrumb :breadcrumbData="breadcrumbData" />
     <div class="container container-main-sidebar">
       <div class="hold-main-sidebar row justify-content-center">
         <MainSingleProduct class="col-xl-9" />
         <SideBar class="col-xl-3 d-none d-xl-block" />
       </div>
     </div>
-    <div class="tea"></div>
   </div>
 </template>
 
@@ -21,6 +20,15 @@ export default {
     BreadCrumb,
     MainSingleProduct,
     SideBar,
+  },
+
+  setup() {
+    const breadcrumbData = [
+      { title: "products", link: "/products" },
+      { title: "single Product", link: "/productdetails" },
+    ];
+
+    return { breadcrumbData };
   },
 };
 </script>

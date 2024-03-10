@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar-container-links d-none d-lg-block">
+  <div class="links-navbar-container d-none d-lg-block">
     <ul
       class="links-navbar list-unstyled mt-0 mb-0 d-flex flex-column flex-lg-row"
     >
@@ -7,7 +7,6 @@
         <Icon
           icon="material-symbols:person-2-outline-rounded"
           width="2rem"
-          class="error-handle-icon"
         ></Icon>
 
         <a class="link text-dark ms-2" aria-current="page" href="#"
@@ -26,7 +25,7 @@
       </li>
 
       <li
-        class="li-search d-flex flex-row-reverse flex-lg-row me-auto mb-2 mb-lg-0"
+        class="li-search d-flex flex-row-reverse flex-lg-row me-auto mb-2 mb-lg-0 d-none d-lg-flex"
       >
         <transition name="search-animate">
           <div
@@ -35,13 +34,21 @@
             :key="toggleSearchIconDate"
           >
             <input
-              class="search-input px-2 w-100"
+              class="search-input px-2 py-1 w-100"
               type="text"
               placeholder="Enter Product Name"
             />
           </div>
         </transition>
-        <Icon icon="mdi:search" width="2rem" @click="toggleSearchIcon"></Icon>
+        <Icon
+          :icon="
+            !toggleSearchIconDate
+              ? 'mdi:search'
+              : 'material-symbols:close-small-outline'
+          "
+          width="2rem"
+          @click="toggleSearchIcon"
+        ></Icon>
       </li>
     </ul>
   </div>
@@ -80,26 +87,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@media (max-width: 650px) {
-  .search-container {
-    width: 100px !important;
-  }
-  .search-input {
-    &::placeholder {
-      font-size: 0;
-    }
-  }
-}
-
 .search-input {
-  @include border(2px, solid, $color_border_nav_footer, 0.3, 10px);
+  @include border(1px, solid, $color_border_nav_footer, 0.3, 3px);
   &:focus {
     outline: none;
   }
-}
-
-.error-handle-icon {
-  margin-left: -2px;
 }
 
 .search-animate-enter-active {

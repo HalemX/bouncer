@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomePage from "../pages/HomePage.vue";
 import productsGrid from "../pages/ProductsGrid.vue";
 import SingleProductVue from "@/pages/SingleProduct.vue";
-import CheckOut from "@/pages/CheckOut.vue";
+import CartPage from "@/pages/CartPage.vue";
 
 const routes = [
   {
@@ -22,15 +22,18 @@ const routes = [
     component: SingleProductVue,
   },
   {
-    path: "/checkout",
-    name: "checkOut",
-    component: CheckOut,
+    path: "/cart",
+    name: "cart",
+    component: CartPage,
   },
 ];
 
 const router = createRouter({
   history: createWebHistory(),
   routes,
+  scrollBehavior() {
+    return { top: 0 };
+  },
 });
 
 export default router;

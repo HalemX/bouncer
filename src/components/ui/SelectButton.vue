@@ -1,5 +1,3 @@
-<!-- This Component Used in Header Only -->
-
 <template>
   <select class="select-header bg-transparent me-4" :class="customizeStyle">
     <option selected :value="firstOption">{{ firstOption }}</option>
@@ -18,6 +16,7 @@ export default {
 .select-header {
   width: fit-content !important;
   border: none;
+  color: black !important;
   cursor: pointer;
   &:focus {
     outline: none;

@@ -1,6 +1,6 @@
 <template>
   <div class="container-products-grid">
-    <BreadCrumb />
+    <BreadCrumb :breadcrumbData="breadcrumbData" />
     <div class="container-sidebar-main container">
       <div class="hold-sidebar-main row">
         <div class="col-lg-3">
@@ -24,6 +24,11 @@ export default {
     BreadCrumb,
     HoldSidebar,
     MainProducts,
+  },
+  setup() {
+    const breadcrumbData = [{ title: "products", link: "/products" }];
+
+    return { breadcrumbData };
   },
 };
 </script>

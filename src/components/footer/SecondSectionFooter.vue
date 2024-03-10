@@ -15,10 +15,10 @@
   </div>
 
   <div
-    class="show container row pb-5 d-block d-sm-none"
+    class="show container row d-block d-sm-none"
     @click="showLink = !showLink"
   >
-    <div class="col-lg-2 col-md-4 col-sm-6 mt-md-3 section">
+    <div class="col-lg-2 col-md-4 col-sm-6 mt-md-3 section p-0">
       <div
         class="show-header-links p-3 d-flex align-items-center justify-content-between mb-3"
       >

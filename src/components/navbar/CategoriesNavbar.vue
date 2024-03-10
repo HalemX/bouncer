@@ -11,8 +11,8 @@
         <li v-for="data in dataLinks" :key="data">
           <router-link
             class="link link-categories text-dark mb-2 d-block mx-lg-4"
-            :to="{ name: 'products' }"
-            >{{ data }}</router-link
+            :to="data.link"
+            >{{ data.title }}</router-link
           >
         </li>
       </ul>
@@ -24,12 +24,12 @@
 export default {
   setup() {
     const dataLinks = [
-      "HOME",
-      "STORE",
-      "IPHONE",
-      "IPAD",
-      "MACBOOK",
-      "ACCESORIES",
+      { title: "HOME", link: "/" },
+      { title: "STORE", link: "/products" },
+      { title: "IPHONE", link: "/products" },
+      { title: "IPAD", link: "/products" },
+      { title: "MACBOOK", link: "/products" },
+      { title: "ACCESORIES", link: "/products" },
     ];
 
     return { dataLinks };

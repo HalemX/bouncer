@@ -1,29 +1,44 @@
 <template>
-  <div class="container-header-products p-2 mt-3 mb-5">
+  <div class="container-breadcrumb p-2 my-5">
     <div
-      class="header-products container flex-column flex-sm-row d-flex align-items-center justify-content-center pt-3"
+      class="flex-column flex-sm-row d-flex align-items-center justify-content-center pt-3"
     >
       <ul class="list-unstyled d-flex">
-        <li>
-          <router-link :to="{ name: 'home' }" class="link me-3 text-dark"
-            >Home</router-link
-          >
-          <span>/</span>
+        <li class="me-2">
+          <router-link :to="{ name: 'home' }" class="link text-dark"
+            >Home >
+          </router-link>
         </li>
-        <li>
-          <router-link to="/" class="link me-3 ms-2 text-dark"
-            >Accesories</router-link
-          >
-          <span>/</span>
+        <li class="me-1" v-for="item in data" :key="item">
+          <router-link
+            v-if="data.length - 1 !== data.indexOf(item)"
+            :to="item.link"
+            class="text-dark link me-1"
+            >{{ item.title }} >
+          </router-link>
+          <span v-else>{{ item.title }}</span>
         </li>
       </ul>
-      <p class="ms-2">Beat Solo2 on Ear Headphones - Black</p>
     </div>
   </div>
 </template>
 
+<script>
+import { ref } from "vue";
+
+export default {
+  props: ["breadcrumbData"],
+
+  setup(props) {
+    const data = ref(props.breadcrumbData);
+
+    return { data };
+  },
+};
+</script>
+
 <style lang="scss" scoped>
-.container-header-products {
+.container-breadcrumb {
   background-color: $background_second_card_border;
 }
 </style>
