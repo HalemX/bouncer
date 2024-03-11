@@ -1,7 +1,7 @@
 <template>
   <div
     class="link-button"
-    :class="{ hoverGray: grayHover, hoverBlue: blueHover }"
+    :class="{ hoverGray: grayHover, hoverBlue: blueHover, disabled: !disabled }"
   >
     <a href="#" class="link-color d-block h6 mb-2"><slot></slot></a>
     <span class="line d-block bg-white"></span>
@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  props: ["grayHover", "blueHover"],
+  props: ["grayHover", "blueHover", "disabled"],
 };
 </script>
 

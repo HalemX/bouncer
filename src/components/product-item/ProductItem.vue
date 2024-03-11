@@ -23,18 +23,18 @@
             class="me-3 blue-icon"
           ></Icon>
         </div>
-        <img :src="imgSrc" alt="product image" class="img-fluid" />
+        <img :src="imageName" alt="product image" class="img-fluid" />
       </div>
 
       <router-link :to="{ name: 'singleProduct' }">
         <div class="info-product" :class="{ 'text-start': row }">
-          <p class="fw-bold text-dark">{{ heading }}</p>
+          <p class="fw-bold text-dark">{{ title }}</p>
 
           <div class="icons">
-            <IconRate :numRate="3" />
+            <IconRate :numRate="numRate" />
           </div>
 
-          <ProductPriceCmpo priceAfterDiscount="$499" priceBefore="$599" />
+          <ProductPriceCmpo :price="price" />
         </div>
       </router-link>
     </div>
@@ -47,46 +47,37 @@ import ProductPriceCmpo from "./ProductPriceCmpo.vue";
 import IconRate from "../ui/IconsRate.vue";
 import { Icon } from "@iconify/vue";
 
-import { onMounted } from "vue";
-
 export default {
-  props: ["column", "row", "imageName", "heading", "columnSmallScreen"],
+  props: [
+    "imageName",
+    "title",
+    "numRate",
+    "price",
+    "column",
+    "row",
+    "columnSmallScreen",
+  ],
   components: {
     ProductPriceCmpo,
     IconRate,
     Icon,
   },
-
-  setup(props) {
-    const imgSrc = require(`@/assets/images/${props.imageName}`);
-
-    onMounted(async () => {
-      const response = await fetch("https://fakestoreapi.com/products");
-
-      const result = await response.json();
-      console.log(result);
-    });
-
-    return { imgSrc };
-  },
 };
 </script>
 
 <style lang="scss" scoped>
-.product {
-  .after-discount {
-    color: $primary_color;
-  }
-  .before-discount {
-    color: $background_third_card;
-  }
-}
-
 .columnBorderStyle {
+  height: 400px !important;
+  .image-product {
+    width: 90%;
+    img {
+      max-height: 150px !important;
+    }
+  }
   flex-direction: column;
   @include border(1px, solid, $background_second_card_border, 1, 7px);
   .image-product {
-    border-bottom: 2px solid $background_second_card_border;
+    border-bottom: 1px solid $background_second_card_border;
   }
 }
 .rowStyle {
@@ -121,4 +112,3 @@ export default {
   }
 }
 </style>
-./ProductPriceCmpo.vue

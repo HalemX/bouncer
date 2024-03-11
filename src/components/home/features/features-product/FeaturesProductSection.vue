@@ -12,14 +12,16 @@
     <div class="features-product-container row g-3 text-center">
       <div
         class="feature-product col-lg-4 col-sm-6 auto"
-        v-for="i in 3"
+        v-for="(item, i) in allProducts"
         :key="i"
       >
         <product-item
           row="row"
           column-small-screen="column"
-          :image-name="dataObj.imageName"
-          :heading="dataObj.heading"
+          :image-name="item?.image"
+          :title="item?.title"
+          :num-rate="item?.rating?.rate"
+          :price="item?.price"
         >
         </product-item>
       </div>
@@ -38,6 +40,7 @@
 <script>
 import ProductItem from "@/components/product-item/ProductItem.vue";
 import SearchInput from "@/components/ui/SearchInput.vue";
+import { ref, onMounted } from "vue";
 
 export default {
   components: {
@@ -45,14 +48,17 @@ export default {
     SearchInput,
   },
   setup() {
-    const dataObj = {
-      imageName: "slider1.png",
-      heading: "Beats Solo 2 On EarHeadphones - Black",
-    };
+    const allProducts = ref([]);
 
-    const count = 3;
+    onMounted(async () => {
+      const response = await fetch("https://fakestoreapi.com/products?limit=3");
 
-    return { dataObj, count };
+      const responseData = await response.json();
+      allProducts.value = responseData;
+      console.log(responseData);
+    });
+
+    return { allProducts };
   },
 };
 </script>

@@ -10,13 +10,19 @@
     :breakpoints="sidebar ? sidebarBreakPoints : normalBreakPoints"
     class="mySwiper"
   >
-    <swiper-slide v-for="i in count" :key="i" :class="{ 'w-75': bestSeller }">
+    <swiper-slide
+      v-for="(item, i) in allProducts"
+      :key="item?.id"
+      :class="{ reduceWidth: bestSeller }"
+    >
       <product-item
         column="column"
-        :image-name="dataObj.imageName"
-        :heading="dataObj.heading"
-        class="me-2"
-      ></product-item>
+        :image-name="allProducts[i]?.image"
+        :title="allProducts[i]?.title"
+        :num-rate="allProducts[i]?.rating?.rate"
+        :price="allProducts[i]?.price"
+      >
+      </product-item>
     </swiper-slide>
   </swiper>
 </template>
@@ -35,7 +41,7 @@ import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
 
 export default {
-  props: ["sidebar", "bestSeller", "count"],
+  props: ["sidebar", "bestSeller", "allProducts"],
   components: {
     Swiper,
     SwiperSlide,
@@ -70,5 +76,8 @@ export default {
 <style>
 .swiper-wrapper {
   margin-bottom: 3rem !important;
+}
+.reduceWidth {
+  width: 65% !important;
 }
 </style>

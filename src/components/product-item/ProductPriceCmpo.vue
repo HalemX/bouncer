@@ -1,26 +1,17 @@
 <template>
   <div class="price mt-3">
-    <span class="after-discount me-3 h5 fw-normal">{{
-      priceAfterDiscount
-    }}</span>
-    <span class="before-discount h5 fw-normal text-decoration-line-through">{{
-      priceBefore
-    }}</span>
+    <span class="price me-3 h5 fw-normal">${{ price }}</span>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["priceAfterDiscount", "priceBefore"],
+  props: ["price"],
 };
 </script>
+
 <style scoped lang="scss">
 .price {
-  .after-discount {
-    color: $primary_color;
-  }
-  .before-discount {
-    color: $background_third_card;
-  }
+  color: $primary_color;
 }
 </style>

@@ -21,6 +21,7 @@
     "vue-awesome-paginate": "^1.1.46",
     "vue-multiselect": "^2.1.8",
     "vue-router": "^4.2.5",
+    "vue-scrollto": "^2.20.0",
     "vue3-smooth-scroll": "^0.8.1",
     "vuex": "^4.1.0"
   },
