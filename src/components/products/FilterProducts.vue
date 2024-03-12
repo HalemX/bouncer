@@ -61,12 +61,7 @@
               v-for="i in count"
               :key="i"
             >
-              <product-item
-                column="column"
-                :image-name="dataObj.imageName"
-                :heading="dataObj.heading"
-              >
-              </product-item>
+              <product-item column="column"> </product-item>
             </div>
           </div> </transition-group
       ></swiper-slide>

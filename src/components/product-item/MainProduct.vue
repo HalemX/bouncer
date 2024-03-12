@@ -69,7 +69,7 @@ export default {
     }
     @media ($max_md) {
       .product-name {
-        font-size: 40px;
+        font-size: 30px;
       }
       p {
         width: 100% !important;
@@ -97,9 +97,8 @@ export default {
 .second {
   background-color: $second_color;
   margin-bottom: 3rem;
-  padding: 2rem !important;
   img {
-    transform: translateY(20px);
+    transform: translateY(55px);
   }
   @media ($min_sm) {
     img {
@@ -112,6 +111,13 @@ export default {
 }
 
 .products {
+  @media ($max_sm) {
+    .info-product {
+      h2 {
+        font-size: 30px !important;
+      }
+    }
+  }
   img {
     width: 380px !important;
     transform: translateY(15px) !important;

@@ -55,7 +55,6 @@ export default {
 
       const responseData = await response.json();
       allProducts.value = responseData;
-      console.log(responseData);
     });
 
     return { allProducts };

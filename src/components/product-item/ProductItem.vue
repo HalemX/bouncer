@@ -28,13 +28,15 @@
 
       <router-link :to="{ name: 'singleProduct' }">
         <div class="info-product" :class="{ 'text-start': row }">
-          <p class="fw-bold text-dark">{{ title }}</p>
-
           <div class="icons">
             <IconRate :numRate="numRate" />
           </div>
 
           <ProductPriceCmpo :price="price" />
+
+          <p class="fw-bold text-dark mt-2" :title="title">
+            {{ title.slice(0, 31) }}
+          </p>
         </div>
       </router-link>
     </div>
@@ -67,9 +69,10 @@ export default {
 
 <style lang="scss" scoped>
 .columnBorderStyle {
-  height: 400px !important;
+  height: 350px !important;
   .image-product {
     width: 90%;
+    height: 167px;
     img {
       max-height: 150px !important;
     }
@@ -82,8 +85,12 @@ export default {
 }
 .rowStyle {
   flex-direction: row;
+  .image-product {
+    margin-right: 1rem;
+  }
   img {
     width: 150px;
+    height: 129px;
   }
 }
 
@@ -96,6 +103,12 @@ export default {
   transform: translateX(-500px);
   .blue-icon {
     color: $second_color;
+  }
+}
+
+.image-product {
+  img {
+    aspect-ratio: 1 / 1;
   }
 }
 
