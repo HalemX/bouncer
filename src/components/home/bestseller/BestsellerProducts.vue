@@ -6,25 +6,33 @@
       <h2 class="heading-filter mb-4">BEST SELLER</h2>
 
       <ul
-        class="categories-filter list-unstyled d-flex mb-4 overflow-auto w-100 m-auto overflow-auto justify-content-center"
+        class="categories-filter list-unstyled d-flex justify-content-md-center mb-4 overflow-auto w-100 m-auto overflow-auto pb-2"
       >
         <li
-          @click.prevent="activeData = ''"
           class="link category text-dark mb-2 d-block mx-4 text-nowrap"
           :class="{ active: activeData == '' }"
-          @click="getNumOfAllProducts(8)"
-          @click.middle="count = 8"
+          @click="
+            count = 4;
+            getNumOfAllProducts(count);
+            getAllProducts();
+            activeData = '';
+            textBtn = 'LOAD MORE';
+          "
         >
           All
         </li>
         <li
           class="link category text-dark mb-2 d-block mx-4 text-nowrap"
           :class="{ active: activeData == category }"
-          @click.prevent="activeData = category"
-          @click.middle="count = 8"
           v-for="category in categories"
           :key="category"
-          @click="getProductByCategory(category, countCategory)"
+          @click="
+            textBtn = 'LOAD MORE';
+            count = 4;
+            getProductByCategory(category, count);
+            getAllProductByCategory(category);
+            activeData = category;
+          "
         >
           {{ category }}
         </li>
@@ -32,33 +40,26 @@
     </div>
   </div>
 
-  <div class="products-btn text-center" id="bestseller">
+  <div class="products-btn text-center">
     <div class="products row g-3 text-center mb-5">
       <transition-group @before-enter="beforeEnter" @enter="enter">
         <div
           class="container-product col-lg-3 col-6 d-none d-sm-block"
-          v-for="(item, i) in products"
-          :key="i"
+          v-for="i in products"
+          :key="products[i]?.id"
         >
-          <product-item
-            column="column"
-            :image-name="item?.image"
-            :title="item?.title"
-            :num-rate="item?.rating?.rate"
-            :price="item?.price"
-          >
-          </product-item>
+          <product-item column="column" :products="products"></product-item>
         </div>
       </transition-group>
 
       <SliderProductItem
-        class="d-block d-md-none"
+        class="d-block d-sm-none"
         best-seller="bestseller"
-        :allProducts="products"
+        :products="products"
       />
     </div>
 
-    <div class="btn-container" v-if="products.length >= 8">
+    <div class="btn-container" v-if="allProducts.length > 4">
       <base-button blue-hover="hover" @click.prevent="loadMoreProducts()">{{
         textBtn
       }}</base-button>
@@ -81,12 +82,21 @@ export default {
     SliderProductItem,
   },
   setup() {
+    const allProducts = ref([]);
     const products = ref([]);
     const categories = ref([]);
-    const count = ref(8);
-    const countCategory = ref(8);
+    const count = ref(4);
     const textBtn = ref("LOAD MORE");
     const activeData = ref("");
+
+    // Fetch All Products
+    async function getAllProducts() {
+      const response = await fetch("https://fakestoreapi.com/products");
+
+      const responseData = await response.json();
+      allProducts.value = responseData;
+      // console.log(allProducts.value.length);
+    }
 
     // Fetch All Categories
     onMounted(async () => {
@@ -96,6 +106,7 @@ export default {
 
       const responseData = await response.json();
       categories.value = responseData;
+      // console.log(categories.value);
     });
 
     // Fetch num of All Product
@@ -109,11 +120,12 @@ export default {
     }
 
     onMounted(async () => {
+      await getAllProducts();
       await getNumOfAllProducts(count.value);
     });
 
     async function loadMoreProducts() {
-      if (count.value < 20) {
+      if (count.value < allProducts.value.length) {
         count.value += 4;
         if (activeData.value == "") {
           await getNumOfAllProducts(count.value);
@@ -121,20 +133,32 @@ export default {
           await getProductByCategory(activeData.value, count.value);
         }
       } else {
-        count.value = 8;
+        count.value = 4;
         if (activeData.value == "") {
           await getNumOfAllProducts(count.value);
         } else {
           await getProductByCategory(activeData.value, count.value);
         }
       }
-      count.value == 20
+      count.value >= allProducts.value.length
         ? (textBtn.value = "LESS")
         : (textBtn.value = "LOAD MORE");
     }
 
-    // Fetch By Category
+    // Fetch Category Without Limit
+    async function getAllProductByCategory(category) {
+      const response = await fetch(
+        `https://fakestoreapi.com/products/category/${category}`
+      );
 
+      const responseData = await response.json();
+      allProducts.value = responseData;
+
+      // allProducts.value = responseData;
+      // console.log(responseData);
+    }
+
+    // Fetch By Category
     async function getProductByCategory(category, limit) {
       const response = await fetch(
         `https://fakestoreapi.com/products/category/${category}?limit=${limit}`
@@ -166,9 +190,11 @@ export default {
       getNumOfAllProducts,
       loadMoreProducts,
       textBtn,
+      getAllProductByCategory,
       getProductByCategory,
       activeData,
-      countCategory,
+      getAllProducts,
+      allProducts,
     };
   },
 };

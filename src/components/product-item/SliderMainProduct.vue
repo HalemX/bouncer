@@ -73,7 +73,7 @@ export default {
   color: #e5e8ea !important;
   &::after,
   &::before {
-    font-size: 34px !important;
+    font-size: 30px !important;
   }
 }
 .swiper-pagination {
@@ -81,5 +81,12 @@ export default {
   .swiper-pagination-progressbar-fill {
     display: none !important;
   }
+}
+
+.swiper-button-next {
+  right: 0px !important;
+}
+.swiper-button-prev {
+  left: 0px !important;
 }
 </style>

@@ -6,8 +6,8 @@
     :modules="modules"
     class="mySwiper2"
   >
-    <swiper-slide class="swip-slide" v-for="i in imagesName" :key="i">
-      <img :src="require(`@/assets/images/${i}.png`)" />
+    <swiper-slide class="swip-slide" v-for="i in 4" :key="i">
+      <img :src="singleProduct.image" />
     </swiper-slide>
   </swiper>
   <swiper
@@ -19,8 +19,8 @@
     :modules="modules"
     class="mySwiper"
   >
-    <swiper-slide class="p-2 swip-slide" v-for="i in imagesName" :key="i">
-      <img :src="require(`@/assets/images/${i}.png`)" />
+    <swiper-slide class="p-2 swip-slide" v-for="i in 4" :key="i">
+      <img :src="singleProduct.image" />
     </swiper-slide>
   </swiper>
 </template>
@@ -40,6 +40,7 @@ import "swiper/css/thumbs";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 
 export default {
+  props: ["singleProduct"],
   components: {
     Swiper,
     SwiperSlide,
@@ -51,13 +52,10 @@ export default {
       thumbsSwiper.value = swiper;
     };
 
-    const imagesName = ["slider1", "slider2", "slider1", "slider3"];
-
     return {
       thumbsSwiper,
       setThumbsSwiper,
       modules: [FreeMode, Navigation, Thumbs],
-      imagesName,
     };
   },
 };

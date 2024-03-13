@@ -9,14 +9,18 @@
         :key="i"
       >
         {{ item }}
-        <span class="d-inline-block ps-2 counter" v-if="i == 1">0</span>
+        <span class="d-inline-block ps-2 counter" v-if="i == 1">{{
+          singleProduct?.rating?.rate
+        }}</span>
       </li>
     </ul>
 
     <transition mode="out-in" @before-enter="beforeEnter" @enter="enter">
       <div class="all-info" :key="activeTab">
-        <div class="info" v-for="(item, i) in info" :key="i">
-          <p class="text-dark" v-if="activeTab == i + 1">{{ item }}</p>
+        <div class="info">
+          <p class="text-dark">
+            {{ singleProduct?.description }}
+          </p>
         </div>
       </div>
     </transition>
@@ -60,7 +64,9 @@
         :key="activeTab"
         :class="{ 'mt-3 mt-0': activeTab == i + 1 }"
       >
-        <p class="text-dark" v-if="activeTab == i + 1">{{ info[i] }}</p>
+        <p class="text-dark" v-if="activeTab == i + 1">
+          {{ singleProduct?.description }}
+        </p>
       </div>
     </transition>
   </div>
@@ -72,17 +78,13 @@ import gsap from "gsap";
 import { Icon } from "@iconify/vue";
 
 export default {
+  props: ["singleProduct"],
   components: {
     Icon,
   },
   setup() {
     const activeTab = ref(1);
     const headerTap = ["Product Infomation", "Reviews", "Another tab"];
-    const info = [
-      " Nunc facilisis sagittis ullamcorper. Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus. Sed et lorem nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean eleifend laoreet congue. Vivamus adipiscing nisl utdolor dignissim semper. Nulla luctus malesuada tincidunt. Class aptenttaciti sociosqu ad litora torquent per conubia nostra, per inceptoshimenaeos. Integer enim purus, posuere at ultricies eu, placerat a",
-      "Sed et lorem nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae.",
-      "Sed et lorem nunc. Vestibulum ante ipsum primis in faucibus .",
-    ];
 
     const beforeEnter = (el) => {
       el.style.opacity = 0;
@@ -94,7 +96,7 @@ export default {
       });
     };
 
-    return { activeTab, beforeEnter, enter, headerTap, info };
+    return { activeTab, beforeEnter, enter, headerTap };
   },
 };
 </script>

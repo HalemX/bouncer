@@ -1,18 +1,20 @@
 <template>
   <div class="container-details">
     <div class="name-rate-product py-4 pe-5">
-      <h4 class="name mb-4">Beats Solo2 On Ear Headphones - Black</h4>
+      <h4 class="name mb-4" :title="singleProduct?.title">
+        {{ singleProduct?.title }}
+      </h4>
 
       <div
         class="rate d-flex flex-column flex-sm-row align-items-start align-items-sm-center"
       >
         <div class="icons mb-2 mb-sm-0">
-          <IconRate :num-rate="2" />
+          <IconRate :num-rate="singleProduct?.rating?.rate" />
         </div>
 
         <div class="reviews d-flex flex-column flex-sm-row ms-0 ms-sm-3">
           <div class="count-reviews d-flex me-3 mb-2 mb-sm-0">
-            <span>0</span>
+            <span>{{ singleProduct?.rating?.rate }}</span>
             <p class="mb-0 ms-2">reviews</p>
           </div>
           <a href="#">Submit a review</a>
@@ -22,7 +24,7 @@
 
     <div class="price-info-product py-4 pe-5">
       <div class="price mb-4">
-        <ProductPriceCmpo priceAfterDiscount="$499" priceBefore="$599" />
+        <ProductPriceCmpo :price="singleProduct?.price" />
       </div>
 
       <div class="info-product">
@@ -107,6 +109,7 @@ import { Icon } from "@iconify/vue";
 import { ref } from "vue";
 
 export default {
+  props: ["singleProduct"],
   components: {
     Icon,
     IconRate,

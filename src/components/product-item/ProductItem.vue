@@ -23,19 +23,19 @@
             class="me-3 blue-icon"
           ></Icon>
         </div>
-        <img :src="imageName" alt="product image" class="img-fluid" />
+        <img :src="dataProduct?.image" alt="product image" class="img-fluid" />
       </div>
 
-      <router-link :to="{ name: 'singleProduct' }">
+      <router-link :to="`/products/${dataProduct?.id}`">
         <div class="info-product" :class="{ 'text-start': row }">
           <div class="icons">
-            <IconRate :numRate="numRate" />
+            <IconRate :numRate="dataProduct?.rating?.rate" />
           </div>
 
-          <ProductPriceCmpo :price="price" />
+          <ProductPriceCmpo :price="dataProduct?.price" />
 
-          <p class="fw-bold text-dark mt-2" :title="title">
-            {{ title.slice(0, 31) }}
+          <p class="fw-bold text-dark mt-2" :title="dataProduct?.title">
+            {{ dataProduct?.title.slice(0, 31) }}
           </p>
         </div>
       </router-link>
@@ -50,15 +50,7 @@ import IconRate from "../ui/IconsRate.vue";
 import { Icon } from "@iconify/vue";
 
 export default {
-  props: [
-    "imageName",
-    "title",
-    "numRate",
-    "price",
-    "column",
-    "row",
-    "columnSmallScreen",
-  ],
+  props: ["products", "column", "row", "columnSmallScreen"],
   components: {
     ProductPriceCmpo,
     IconRate,

@@ -17,7 +17,7 @@ const routes = [
     component: productsGrid,
   },
   {
-    path: "/productdetails",
+    path: "/products/:id",
     name: "singleProduct",
     component: SingleProductVue,
   },

@@ -1,5 +1,5 @@
 <template>
-  <select class="select-header bg-transparent me-4 p-2" :class="customizeStyle">
+  <select class="select-header bg-transparent me-4" :class="customizeStyle">
     <option selected :value="firstOption">{{ firstOption }}</option>
     <option :value="secondOption">{{ secondOption }}</option>
     <slot></slot>
