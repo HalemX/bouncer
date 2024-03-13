@@ -50,7 +50,7 @@ import IconRate from "../ui/IconsRate.vue";
 import { Icon } from "@iconify/vue";
 
 export default {
-  props: ["products", "column", "row", "columnSmallScreen"],
+  props: ["dataProduct", "column", "row", "columnSmallScreen"],
   components: {
     ProductPriceCmpo,
     IconRate,

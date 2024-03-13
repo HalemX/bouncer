@@ -45,17 +45,17 @@
       <transition-group @before-enter="beforeEnter" @enter="enter">
         <div
           class="container-product col-lg-3 col-6 d-none d-sm-block"
-          v-for="i in products"
-          :key="products[i]?.id"
+          v-for="(item, i) in products"
+          :key="i"
         >
-          <product-item column="column" :products="products"></product-item>
+          <product-item column="column" :dataProduct="item"> </product-item>
         </div>
       </transition-group>
 
       <SliderProductItem
         class="d-block d-sm-none"
         best-seller="bestseller"
-        :products="products"
+        :allProducts="products"
       />
     </div>
 

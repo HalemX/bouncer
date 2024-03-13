@@ -12,17 +12,10 @@
   >
     <swiper-slide
       v-for="(item, i) in allProducts"
-      :key="item?.id"
+      :key="i"
       :class="{ reduceWidth: bestSeller }"
     >
-      <product-item
-        column="column"
-        :image-name="allProducts[i]?.image"
-        :title="allProducts[i]?.title"
-        :num-rate="allProducts[i]?.rating?.rate"
-        :price="allProducts[i]?.price"
-      >
-      </product-item>
+      <product-item column="column" :dataProduct="item"></product-item>
     </swiper-slide>
   </swiper>
 </template>
@@ -47,11 +40,7 @@ export default {
     SwiperSlide,
     ProductItem,
   },
-  setup() {
-    const dataObj = {
-      imageName: "mack.png",
-      heading: "Apple Macbook Pro",
-    };
+  setup(props) {
     const sidebarBreakPoints = {
       460: { slidesPerView: 2, spaceBetween: 16 },
       991: { slidesPerView: 3, spaceBetween: 16 },
@@ -63,9 +52,10 @@ export default {
       1200: { slidesPerView: 4 },
     };
 
+    console.log(props.allProducts);
+
     return {
       modules: [Pagination],
-      dataObj,
       sidebarBreakPoints,
       normalBreakPoints,
     };
@@ -76,8 +66,5 @@ export default {
 <style>
 .swiper-wrapper {
   margin-bottom: 3rem !important;
-}
-.reduceWidth {
-  width: 65% !important;
 }
 </style>

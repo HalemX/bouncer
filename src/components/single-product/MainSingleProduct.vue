@@ -17,7 +17,7 @@
       <h3 class="header-sidebar mb-3 ps-3 mb-4">BEST SELLER</h3>
 
       <!-- (sidebar prop) to add breakpoints must appear of slider product when use in sidebar and (count prop) is num of swiper-->
-      <SliderProductItem sidebar="sidebar" />
+      <SliderProductItem sidebar="sidebar" :allProducts="data" />
     </div>
 
     <!-- <div class="related-products text-center mt-5">
@@ -47,6 +47,7 @@ export default {
     const count = 4;
     const route = useRoute();
     const singleProduct = ref({});
+    const data = ref([]);
 
     const idProduct = route.params.id;
 
@@ -57,11 +58,20 @@ export default {
 
       singleProduct.value = responseData;
     }
+    // Fetch Single Product
+    async function getProducts() {
+      const response = await fetch(`https://fakestoreapi.com/products`);
+      const responseData = await response.json();
+
+      data.value = responseData;
+      console.log(data.value);
+    }
 
     onMounted(async () => {
       await getSingleProduct(idProduct);
+      await getProducts();
     });
-    return { count, singleProduct };
+    return { count, singleProduct, data };
   },
 };
 </script>
