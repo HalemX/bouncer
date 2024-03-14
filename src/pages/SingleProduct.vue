@@ -19,6 +19,7 @@ import MainSingleProduct from "@/components/single-product/MainSingleProduct.vue
 import SideBar from "@/components/single-product/SideBar.vue";
 
 import { ref } from "vue";
+import { useRoute } from "vue-router";
 
 export default {
   components: {
@@ -29,10 +30,13 @@ export default {
 
   setup() {
     const singleProduct = ref({});
+    const route = useRoute();
     const breadcrumbData = ref([
-      { title: "products", link: "/products" },
+      { title: "products", link: `/products/${route.params.slug} ` },
       { title: singleProduct.value.title, link: "/productdetails" },
     ]);
+
+    breadcrumbData.value[0].link = `/products/${route.params.slug}`;
 
     function handleSingleProduct(data) {
       singleProduct.value = data;

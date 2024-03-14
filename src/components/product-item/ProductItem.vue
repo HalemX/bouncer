@@ -26,7 +26,7 @@
         <img :src="dataProduct?.image" alt="product image" class="img-fluid" />
       </div>
 
-      <router-link :to="`/products/${dataProduct?.id}`">
+      <router-link :to="`/product/${dataProduct?.id}`">
         <div class="info-product" :class="{ 'text-start': row }">
           <div class="icons">
             <IconRate :numRate="dataProduct?.rating?.rate" />
@@ -35,7 +35,7 @@
           <ProductPriceCmpo :price="dataProduct?.price" />
 
           <p class="fw-bold text-dark mt-1" :title="dataProduct?.title">
-            {{ dataProduct?.title }}
+            {{ dataProduct?.title.slice(0, 25) }}
           </p>
         </div>
       </router-link>

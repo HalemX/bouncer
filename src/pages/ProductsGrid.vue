@@ -19,6 +19,8 @@ import BreadCrumb from "@/components/ui/BreadCrumb.vue";
 import HoldSidebar from "@/components/products/HoldSidebar.vue";
 import MainProducts from "@/components/products/MainProducts.vue";
 
+import { useRoute } from "vue-router";
+
 export default {
   components: {
     BreadCrumb,
@@ -26,7 +28,10 @@ export default {
     MainProducts,
   },
   setup() {
-    const breadcrumbData = [{ title: "products", link: "/products" }];
+    const route = useRoute();
+    const breadcrumbData = [
+      { title: "products", link: `/products/${route.params.slug} ` },
+    ];
 
     return { breadcrumbData };
   },

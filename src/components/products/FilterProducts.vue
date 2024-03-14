@@ -77,8 +77,8 @@ import SideBar from "./SideBar.vue";
 
 import { Icon } from "@iconify/vue";
 import gsap from "gsap";
-import { computed, ref } from "vue";
-import { useStore } from "vuex";
+import { onMounted, ref, watch } from "vue";
+import { useRoute } from "vue-router";
 
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from "swiper/vue";
@@ -101,19 +101,30 @@ export default {
   },
   setup() {
     const count = ref(12);
-    const store = useStore();
-    const test = ref([]);
     const showSidebarToggle = ref(false);
+    const route = useRoute();
+    const allProducts = ref([]);
 
-    const allProducts = computed(() => {
-      return store.state.allProducts;
+    onMounted(async () => {
+      await getProductByCategory(route.params.slug);
     });
 
-    if (localStorage.getItem("products")) {
-      test.value = localStorage.getItem("products");
+    // Fetch By Category
+    async function getProductByCategory(category) {
+      const response = await fetch(
+        `https://fakestoreapi.com/products/category/${category}`
+      );
+
+      const responseData = await response.json();
+      allProducts.value = responseData;
     }
 
-    console.log(allProducts.value);
+    watch(
+      () => route.params.slug,
+      () => {
+        getProductByCategory(route.params.slug);
+      }
+    );
 
     const beforeEnter = (el) => {
       el.style.opacity = 0;
