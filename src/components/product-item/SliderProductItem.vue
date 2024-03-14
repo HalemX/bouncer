@@ -40,7 +40,7 @@ export default {
     SwiperSlide,
     ProductItem,
   },
-  setup(props) {
+  setup() {
     const sidebarBreakPoints = {
       460: { slidesPerView: 2, spaceBetween: 16 },
       991: { slidesPerView: 3, spaceBetween: 16 },
@@ -51,8 +51,6 @@ export default {
       991: { slidesPerView: 3, spaceBetween: 16 },
       1200: { slidesPerView: 4 },
     };
-
-    console.log(props.allProducts);
 
     return {
       modules: [Pagination],

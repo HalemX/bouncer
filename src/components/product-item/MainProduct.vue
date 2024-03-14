@@ -1,6 +1,6 @@
 <template>
   <div
-    class="main-product overflow-hidden"
+    class="main-product overflow-hidden px-3 py-5"
     :class="{ primary: primary, second: second }"
   >
     <div

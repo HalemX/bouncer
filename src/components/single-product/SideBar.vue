@@ -4,7 +4,7 @@
       <div class="best-seller">
         <h5 class="header-sidebar mb-3 ps-3">BEST SELLER</h5>
 
-        <SliderProductItem sidebar="sideBar" :count="4" />
+        <SliderProductItem sidebar="sideBar" :all-products="data" />
       </div>
 
       <div
@@ -27,6 +27,8 @@
 import SliderProductItem from "../product-item/SliderProductItem.vue";
 import LandingCard from "../home/landing/LandingCard.vue";
 
+import { ref, onMounted } from "vue";
+
 export default {
   components: {
     SliderProductItem,
@@ -38,8 +40,23 @@ export default {
       price: "$299",
       img: "50051823_540375",
     };
+    const data = ref([]);
 
-    return { landingCardData };
+    // Fetch bestseller
+    async function getBestsellerProducts(limit) {
+      const response = await fetch(
+        `https://fakestoreapi.com/products?limit=${limit}`
+      );
+      const responseData = await response.json();
+
+      data.value = responseData;
+    }
+
+    onMounted(async () => {
+      await getBestsellerProducts(4);
+    });
+
+    return { landingCardData, data };
   },
 };
 </script>

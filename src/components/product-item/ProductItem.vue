@@ -1,7 +1,7 @@
 <template>
   <div class="all-data-of-product-item">
     <div
-      class="product-item overflow-hidden d-flex align-items-center px-2 py-3"
+      class="product-item overflow-hidden d-flex align-items-center text-center px-2 py-3"
       :class="{
         columnBorderStyle: column,
         rowStyle: row,
@@ -40,7 +40,6 @@
         </div>
       </router-link>
     </div>
-    <slot></slot>
   </div>
 </template>
 
@@ -49,8 +48,16 @@ import ProductPriceCmpo from "./ProductPriceCmpo.vue";
 import IconRate from "../ui/IconsRate.vue";
 import { Icon } from "@iconify/vue";
 
+// import { useStore } from "vuex";
+
 export default {
-  props: ["dataProduct", "column", "row", "columnSmallScreen"],
+  props: [
+    "dataProduct",
+    "allProductsByCategory",
+    "column",
+    "row",
+    "columnSmallScreen",
+  ],
   components: {
     ProductPriceCmpo,
     IconRate,

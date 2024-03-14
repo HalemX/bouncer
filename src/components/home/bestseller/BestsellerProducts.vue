@@ -48,7 +48,12 @@
           v-for="(item, i) in products"
           :key="i"
         >
-          <product-item column="column" :dataProduct="item"> </product-item>
+          <product-item
+            column="column"
+            :dataProduct="item"
+            :allProductsByCategory="allProducts"
+          >
+          </product-item>
         </div>
       </transition-group>
 
@@ -73,6 +78,7 @@ import SliderProductItem from "@/components/product-item/SliderProductItem.vue";
 import BaseButton from "../../ui/BaseButton.vue";
 
 import { ref, onMounted } from "vue";
+import { useStore } from "vuex";
 import gsap from "gsap";
 
 export default {
@@ -88,6 +94,7 @@ export default {
     const count = ref(4);
     const textBtn = ref("LOAD MORE");
     const activeData = ref("");
+    const store = useStore();
 
     // Fetch All Products
     async function getAllProducts() {
@@ -95,7 +102,8 @@ export default {
 
       const responseData = await response.json();
       allProducts.value = responseData;
-      // console.log(allProducts.value.length);
+      // console.log(allProducts);
+      store.commit("setAllProducts", allProducts);
     }
 
     // Fetch All Categories
@@ -153,9 +161,14 @@ export default {
 
       const responseData = await response.json();
       allProducts.value = responseData;
+      store.commit("setAllProducts", allProducts);
 
-      // allProducts.value = responseData;
-      // console.log(responseData);
+      // const test = computed(() => {
+      //   return store.state.allProducts;
+      // });
+
+      // // allProducts.value = responseData;
+      // console.log(test.value);
     }
 
     // Fetch By Category
