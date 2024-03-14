@@ -1,5 +1,5 @@
 <template>
-  <div class="allow-sticky">
+  <div class="allow-sticky container">
     <div class="container-sidebar py-5 position-sticky mb-3">
       <div class="best-seller">
         <h5 class="header-sidebar mb-3 ps-3">BEST SELLER</h5>

@@ -12,7 +12,7 @@ const routes = [
     component: HomePage,
   },
   {
-    path: "/products",
+    path: "/products/:slug",
     name: "products",
     component: productsGrid,
   },

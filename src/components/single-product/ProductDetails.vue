@@ -30,11 +30,15 @@
       <div class="info-product">
         <div
           class="available d-flex flex-column flex-sm-row align-items-start align-items-sm-center mb-3"
-          v-for="(item, i) in infoProduct"
-          :key="item"
         >
-          <p class="mb-2 mb-sm-0 me-5 fw-bold">{{ item }}</p>
-          <span>{{ dataInfoProduct[i] }}</span>
+          <p class="mb-2 mb-sm-0 me-5 fw-bold">available:</p>
+          <span>in stock</span>
+        </div>
+        <div
+          class="available d-flex flex-column flex-sm-row align-items-start align-items-sm-center mb-3"
+        >
+          <p class="mb-2 mb-sm-0 me-5 fw-bold">category:</p>
+          <span>{{ singleProduct.category }}</span>
         </div>
 
         <p class="fw-bold mb-0">Free shipping</p>
@@ -123,9 +127,8 @@ export default {
     const loved = ref(false);
     const colors = ["#2e90e5", "red", "black", "#EFDFDF"];
     const infoProduct = ["Availability:", "Category:"];
-    const dataInfoProduct = ["In stock", "Accessories"];
 
-    return { colors, loved, infoProduct, dataInfoProduct };
+    return { colors, loved, infoProduct };
   },
 };
 </script>

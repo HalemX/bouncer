@@ -7,10 +7,7 @@ const store = createStore({
   mutations: {
     setAllProducts(state, payload) {
       state.allProducts = payload;
-      localStorage.setItem(
-        "relatedProducts",
-        JSON.stringify(state.allProducts)
-      );
+      localStorage.setItem("products", JSON.stringify(state.allProducts));
     },
   },
 });

@@ -9,6 +9,7 @@
     :modules="modules"
     :breakpoints="sidebar ? sidebarBreakPoints : normalBreakPoints"
     class="mySwiper"
+    :class="{ relatedProductsStyle: allProducts.length < 4 }"
   >
     <swiper-slide
       v-for="(item, i) in allProducts"
@@ -34,7 +35,7 @@ import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
 
 export default {
-  props: ["sidebar", "bestSeller", "allProducts"],
+  props: ["sidebar", "bestSeller", "allProducts", "relatedProductsStyle"],
   components: {
     Swiper,
     SwiperSlide,
@@ -64,5 +65,14 @@ export default {
 <style>
 .swiper-wrapper {
   margin-bottom: 3rem !important;
+}
+.relatedProductsStyle {
+  @media (min-width: 991px) {
+    .swiper-wrapper {
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
+    }
+  }
 }
 </style>

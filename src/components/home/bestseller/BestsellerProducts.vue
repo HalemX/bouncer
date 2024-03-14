@@ -16,7 +16,6 @@
             getNumOfAllProducts(count);
             getAllProducts();
             activeData = '';
-            textBtn = 'LOAD MORE';
           "
         >
           All
@@ -27,7 +26,6 @@
           v-for="category in categories"
           :key="category"
           @click="
-            textBtn = 'LOAD MORE';
             count = 4;
             getProductByCategory(category, count);
             getAllProductByCategory(category);
@@ -78,7 +76,6 @@ import SliderProductItem from "@/components/product-item/SliderProductItem.vue";
 import BaseButton from "../../ui/BaseButton.vue";
 
 import { ref, onMounted } from "vue";
-import { useStore } from "vuex";
 import gsap from "gsap";
 
 export default {
@@ -94,7 +91,6 @@ export default {
     const count = ref(4);
     const textBtn = ref("LOAD MORE");
     const activeData = ref("");
-    const store = useStore();
 
     // Fetch All Products
     async function getAllProducts() {
@@ -102,8 +98,6 @@ export default {
 
       const responseData = await response.json();
       allProducts.value = responseData;
-      // console.log(allProducts);
-      store.commit("setAllProducts", allProducts);
     }
 
     // Fetch All Categories
@@ -114,7 +108,6 @@ export default {
 
       const responseData = await response.json();
       categories.value = responseData;
-      // console.log(categories.value);
     });
 
     // Fetch num of All Product
@@ -125,6 +118,7 @@ export default {
 
       const responseData = await response.json();
       products.value = responseData;
+      textBtn.value = "LOAD MORE";
     }
 
     onMounted(async () => {
@@ -161,14 +155,6 @@ export default {
 
       const responseData = await response.json();
       allProducts.value = responseData;
-      store.commit("setAllProducts", allProducts);
-
-      // const test = computed(() => {
-      //   return store.state.allProducts;
-      // });
-
-      // // allProducts.value = responseData;
-      // console.log(test.value);
     }
 
     // Fetch By Category
@@ -179,6 +165,7 @@ export default {
 
       const responseData = await response.json();
       products.value = responseData;
+      textBtn.value = "LOAD MORE";
     }
 
     // Transition When Load More

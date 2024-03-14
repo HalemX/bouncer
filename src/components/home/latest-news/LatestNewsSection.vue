@@ -26,13 +26,10 @@
                 class="img-fluid"
               />
             </div>
-            <div class="info-new-product text-center text-sm-start ms-3 py-4">
+            <div class="info-new-product text-center text-sm-start ms-3">
               <span class="d-block mb-2">01 Jan, 2015</span>
               <h5 class="mb-2">Typesetting industry</h5>
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry.
-              </p>
+              <p>Lorem Ipsum is simply dummy text.</p>
             </div>
           </div>
         </div>
@@ -48,7 +45,7 @@
 
 .image-new-product {
   img {
-    width: 250px;
+    width: 150px;
     @media (max-width: 576px) {
       width: 150px !important;
     }
@@ -58,9 +55,9 @@
 .container-card:last-child {
   .image-new-product {
     img {
-      width: 100px !important;
-      @media (max-width: 576px) {
-        width: 150px !important;
+      width: 150px !important;
+      @media (min-width: 576px) {
+        width: 130px !important;
       }
     }
   }

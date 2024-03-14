@@ -3,7 +3,10 @@
     <BreadCrumb :breadcrumbData="breadcrumbData" />
     <div class="container container-main-sidebar">
       <div class="hold-main-sidebar row justify-content-center">
-        <MainSingleProduct class="col-xl-9" />
+        <MainSingleProduct
+          class="col-xl-9"
+          @singleProduct="handleSingleProduct"
+        />
         <SideBar class="col-xl-3 d-none d-xl-block" />
       </div>
     </div>
@@ -15,6 +18,8 @@ import BreadCrumb from "@/components/ui/BreadCrumb.vue";
 import MainSingleProduct from "@/components/single-product/MainSingleProduct.vue";
 import SideBar from "@/components/single-product/SideBar.vue";
 
+import { ref } from "vue";
+
 export default {
   components: {
     BreadCrumb,
@@ -23,12 +28,19 @@ export default {
   },
 
   setup() {
-    const breadcrumbData = [
+    const singleProduct = ref({});
+    const breadcrumbData = ref([
       { title: "products", link: "/products" },
-      { title: "single Product", link: "/productdetails" },
-    ];
+      { title: singleProduct.value.title, link: "/productdetails" },
+    ]);
 
-    return { breadcrumbData };
+    function handleSingleProduct(data) {
+      singleProduct.value = data;
+      breadcrumbData.value[1].title = singleProduct.value.title;
+      breadcrumbData.value[1].link = `/products/${singleProduct.value.id}`;
+    }
+
+    return { breadcrumbData, handleSingleProduct };
   },
 };
 </script>

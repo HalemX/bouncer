@@ -35,7 +35,7 @@
           <ProductPriceCmpo :price="dataProduct?.price" />
 
           <p class="fw-bold text-dark mt-1" :title="dataProduct?.title">
-            {{ dataProduct?.title.slice(0, 25) }}
+            {{ dataProduct?.title }}
           </p>
         </div>
       </router-link>
@@ -51,13 +51,7 @@ import { Icon } from "@iconify/vue";
 // import { useStore } from "vuex";
 
 export default {
-  props: [
-    "dataProduct",
-    "allProductsByCategory",
-    "column",
-    "row",
-    "columnSmallScreen",
-  ],
+  props: ["dataProduct", "column", "row", "columnSmallScreen"],
   components: {
     ProductPriceCmpo,
     IconRate,
@@ -68,7 +62,7 @@ export default {
 
 <style lang="scss" scoped>
 .columnBorderStyle {
-  height: 300px !important;
+  height: 320px !important;
   .image-product {
     width: 90%;
     height: 167px;

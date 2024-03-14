@@ -8,11 +8,19 @@
       <ul
         class="links-categories list-unstyled d-flex flex-column flex-lg-row mb-4 text-start text-lg-center"
       >
-        <li v-for="data in dataLinks" :key="data">
+        <li>
           <router-link
             class="link link-categories text-dark mb-2 d-block mx-lg-4"
-            :to="data.link"
-            >{{ data.title }}</router-link
+            to="/"
+            >HOME</router-link
+          >
+        </li>
+
+        <li v-for="(item, i) in categories" :key="i">
+          <router-link
+            class="link link-categories text-dark mb-2 d-block mx-lg-4"
+            :to="`/products/${item}`"
+            >{{ item }}</router-link
           >
         </li>
       </ul>
@@ -21,18 +29,23 @@
 </template>
 
 <script>
+import { ref, onMounted } from "vue";
+
 export default {
   setup() {
-    const dataLinks = [
-      { title: "HOME", link: "/" },
-      { title: "STORE", link: "/products" },
-      { title: "IPHONE", link: "/products" },
-      { title: "IPAD", link: "/products" },
-      { title: "MACBOOK", link: "/products" },
-      { title: "ACCESORIES", link: "/products" },
-    ];
+    const categories = ref([]);
 
-    return { dataLinks };
+    // Fetch All Categories
+    onMounted(async () => {
+      const response = await fetch(
+        "https://fakestoreapi.com/products/categories"
+      );
+
+      const responseData = await response.json();
+      categories.value = responseData;
+    });
+
+    return { categories };
   },
 };
 </script>

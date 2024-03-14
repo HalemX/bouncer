@@ -15,14 +15,16 @@
     <!-- Bestseller section of sidebar appear at small screen and in sidebar is hide (handle responsive) -->
     <div class="best-seller d-block d-xl-none text-center mt-5">
       <h3 class="header-sidebar mb-3 ps-3 mb-4">BEST SELLER</h3>
-
       <!-- (sidebar prop) to add breakpoints must appear of slider product when use in sidebar and (count prop) is num of swiper-->
       <SliderProductItem sidebar="sidebar" :allProducts="bestSellerProducts" />
     </div>
 
     <div class="related-products text-center mt-5">
       <h3 class="mb-3 ps-3 mb-4">RELATED PRODUCTS</h3>
-      <SliderProductItem :allProducts="productsRelated" />
+      <SliderProductItem
+        :all-products="productsRelated"
+        relatedProductsStyle="relatedProductsStyle"
+      />
     </div>
   </div>
 </template>
@@ -34,23 +36,22 @@ import ProductInfo from "./ProductInfo.vue";
 import SliderProductItem from "../product-item/SliderProductItem.vue";
 
 import { useRoute } from "vue-router";
-import { useStore } from "vuex";
-import { onMounted, ref, computed, watch } from "vue";
+import { onMounted, ref, watch } from "vue";
 
 export default {
+  emits: ["singleProduct"],
   components: {
     SliderImage,
     ProductDetails,
     ProductInfo,
     SliderProductItem,
   },
-  setup() {
+  setup(_, { emit }) {
     const count = 8;
     const route = useRoute();
     const singleProduct = ref({});
     const bestSellerProducts = ref([]);
     const productsRelated = ref([]);
-    const store = useStore();
 
     // Fetch Single Product
     async function getSingleProduct(id) {
@@ -60,11 +61,10 @@ export default {
       singleProduct.value = responseData;
     }
 
-    watch(
-      () => route.params.id,
-      () => {
-        getSingleProduct(route.params.id);
-      }
+    const emitSingleProductToParent = ref(
+      watch(singleProduct, function emitSingleProductToParent(newValue) {
+        emit("singleProduct", newValue);
+      })
     );
 
     // Fetch bestseller
@@ -77,29 +77,39 @@ export default {
       bestSellerProducts.value = responseData;
     }
 
+    // Fetch Related Product
+    async function getRelatedProducts() {
+      const response = await fetch(
+        `https://fakestoreapi.com/products/category/${singleProduct.value.category}`
+      );
+      const responseData = await response.json();
+      const result = responseData.filter((product) => {
+        return product.id != singleProduct.value.id;
+      });
+
+      productsRelated.value = result;
+    }
+
+    watch(
+      () => route.params.id,
+      () => {
+        getSingleProduct(route.params.id);
+        getRelatedProducts;
+      }
+    );
+
     onMounted(async () => {
       await getSingleProduct(route.params.id);
       await getBestsellerProducts(count);
+      await getRelatedProducts(singleProduct.value.category);
     });
-
-    const relatedProducts = computed(() => {
-      return store.state.allProducts;
-    });
-
-    if (localStorage.getItem("relatedProducts")) {
-      productsRelated.value = JSON.parse(
-        localStorage.getItem("relatedProducts")
-      );
-    } else {
-      productsRelated.value = relatedProducts.value;
-    }
 
     return {
       count,
       singleProduct,
       bestSellerProducts,
-      relatedProducts,
       productsRelated,
+      emitSingleProductToParent,
     };
   },
 };

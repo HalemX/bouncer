@@ -58,10 +58,11 @@
           <div class="products row g-3 text-center mb-4" :key="count">
             <div
               class="container-product col-lg-4 col-sm-6"
-              v-for="i in count"
+              v-for="(item, i) in allProducts"
               :key="i"
             >
-              <product-item column="column"> </product-item>
+              <product-item column="column" :data-product="item">
+              </product-item>
             </div>
           </div> </transition-group
       ></swiper-slide>
@@ -76,7 +77,8 @@ import SideBar from "./SideBar.vue";
 
 import { Icon } from "@iconify/vue";
 import gsap from "gsap";
-import { ref } from "vue";
+import { computed, ref } from "vue";
+import { useStore } from "vuex";
 
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from "swiper/vue";
@@ -99,12 +101,19 @@ export default {
   },
   setup() {
     const count = ref(12);
-
-    const dataObj = {
-      imageName: "mack.png",
-      heading: "Apple Macbook Pro",
-    };
+    const store = useStore();
+    const test = ref([]);
     const showSidebarToggle = ref(false);
+
+    const allProducts = computed(() => {
+      return store.state.allProducts;
+    });
+
+    if (localStorage.getItem("products")) {
+      test.value = localStorage.getItem("products");
+    }
+
+    console.log(allProducts.value);
 
     const beforeEnter = (el) => {
       el.style.opacity = 0;
@@ -119,8 +128,8 @@ export default {
     };
 
     return {
+      allProducts,
       count,
-      dataObj,
       showSidebarToggle,
       beforeEnter,
       enter,
