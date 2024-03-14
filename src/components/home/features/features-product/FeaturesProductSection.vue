@@ -18,10 +18,7 @@
         <product-item
           row="row"
           column-small-screen="column"
-          :image-name="item?.image"
-          :title="item?.title"
-          :num-rate="item?.rating?.rate"
-          :price="item?.price"
+          :data-product="item"
         >
         </product-item>
       </div>

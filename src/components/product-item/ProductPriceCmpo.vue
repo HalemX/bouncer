@@ -1,5 +1,5 @@
 <template>
-  <div class="price mt-3">
+  <div class="price mt-1">
     <span class="price me-3 h5 fw-normal">${{ price }}</span>
   </div>
 </template>

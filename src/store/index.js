@@ -11,7 +11,6 @@ const store = createStore({
         "relatedProducts",
         JSON.stringify(state.allProducts)
       );
-      console.log(state.allProducts);
     },
   },
 });

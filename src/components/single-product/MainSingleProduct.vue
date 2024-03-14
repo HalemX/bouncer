@@ -22,7 +22,7 @@
 
     <div class="related-products text-center mt-5">
       <h3 class="mb-3 ps-3 mb-4">RELATED PRODUCTS</h3>
-      <SliderProductItem :allProducts="test" />
+      <SliderProductItem :allProducts="productsRelated" />
     </div>
   </div>
 </template>
@@ -35,7 +35,7 @@ import SliderProductItem from "../product-item/SliderProductItem.vue";
 
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
-import { onMounted, ref, computed } from "vue";
+import { onMounted, ref, computed, watch } from "vue";
 
 export default {
   components: {
@@ -49,10 +49,8 @@ export default {
     const route = useRoute();
     const singleProduct = ref({});
     const bestSellerProducts = ref([]);
-    const test = ref([]);
+    const productsRelated = ref([]);
     const store = useStore();
-
-    const idProduct = route.params.id;
 
     // Fetch Single Product
     async function getSingleProduct(id) {
@@ -61,6 +59,13 @@ export default {
 
       singleProduct.value = responseData;
     }
+
+    watch(
+      () => route.params.id,
+      () => {
+        getSingleProduct(route.params.id);
+      }
+    );
 
     // Fetch bestseller
     async function getBestsellerProducts(limit) {
@@ -73,7 +78,7 @@ export default {
     }
 
     onMounted(async () => {
-      await getSingleProduct(idProduct);
+      await getSingleProduct(route.params.id);
       await getBestsellerProducts(count);
     });
 
@@ -82,12 +87,20 @@ export default {
     });
 
     if (localStorage.getItem("relatedProducts")) {
-      test.value = JSON.parse(localStorage.getItem("relatedProducts"));
+      productsRelated.value = JSON.parse(
+        localStorage.getItem("relatedProducts")
+      );
     } else {
-      test.value = relatedProducts.value;
+      productsRelated.value = relatedProducts.value;
     }
 
-    return { count, singleProduct, bestSellerProducts, relatedProducts, test };
+    return {
+      count,
+      singleProduct,
+      bestSellerProducts,
+      relatedProducts,
+      productsRelated,
+    };
   },
 };
 </script>
