@@ -11,7 +11,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="i in count" :key="i">
+          <tr v-for="(item, i) in productsCart" :key="i">
             <td class="py-5">
               <div class="image-product d-flex align-items-center">
                 <div class="icon">
@@ -19,25 +19,53 @@
                     icon="material-symbols-light:close-rounded"
                     class="d-block fw-normal"
                     width="1rem"
-                    @click="count -= 1"
+                    @click="
+                      productsCart.splice(productsCart.indexOf(item), 1);
+                      adjustTotal();
+                    "
                   />
                 </div>
                 <img
-                  src="../../assets/images/Rectangle5.png"
+                  :src="item.image"
                   alt=""
                   class="img-fluid mx-3"
                   width="110px"
                 />
                 <p class="info m-0">
-                  Philips Hue 7W BR30 Connected Downlight Lamp
+                  {{ item.title }}
                 </p>
               </div>
             </td>
-            <td class="price text-center align-middle py-5">$998</td>
-            <td class="align-middle text-center py-5">
-              <CounterBtn checkOut="checkout" />
+            <td class="price text-center align-middle py-5">
+              ${{ (item.price * item.quantity).toFixed(2) }}
             </td>
-            <td class="text-center align-middle py-5">$499</td>
+            <td class="align-middle text-center py-5">
+              <div
+                class="counter d-flex align-items-center px-3 mb-2 mb-sm-0 justify-content-center"
+              >
+                <button
+                  class="minus d-block me-4 border-0 bg-transparent"
+                  @click="
+                    item.quantity > 0 ? item.quantity-- : item.quantity;
+                    adjustTotal();
+                  "
+                  :disabled="item.quantity <= 1"
+                >
+                  -
+                </button>
+                <p class="num mb-0">{{ item.quantity }}</p>
+                <button
+                  class="minus d-block ms-4 border-0 bg-transparent"
+                  @click="
+                    item.quantity++;
+                    adjustTotal();
+                  "
+                >
+                  +
+                </button>
+              </div>
+            </td>
+            <td class="text-center align-middle py-5">${{ item.price }}</td>
           </tr>
         </tbody>
       </table>
@@ -56,11 +84,21 @@
         <div class="summary mb-3">
           <div
             class="subtotal d-flex align-items-center justify-content-between mb-4"
-            v-for="(item, i) in orderSummaryData.priceType"
-            :key="item"
           >
-            <p class="mb-0">{{ item }}</p>
-            <span>{{ orderSummaryData.price[i] }}</span>
+            <p class="mb-0">Subtotal</p>
+            <span>{{ total.toFixed(2) }}</span>
+          </div>
+          <div
+            class="subtotal d-flex align-items-center justify-content-between mb-4"
+          >
+            <p class="mb-0">Shipping fee</p>
+            <span>$20</span>
+          </div>
+          <div
+            class="subtotal d-flex align-items-center justify-content-between mb-4"
+          >
+            <p class="mb-0">Coupon</p>
+            <span>No</span>
           </div>
         </div>
 
@@ -68,7 +106,7 @@
           class="total d-flex align-items-center justify-content-between my-4"
         >
           <p class="h3">TOTAL</p>
-          <span class="h3">$118</span>
+          <span class="h3">{{ total.toFixed(2) }}</span>
         </div>
 
         <div class="checkout-btn text-center">
@@ -80,27 +118,40 @@
 </template>
 
 <script>
-import CounterBtn from "../ui/CounterBtn";
 import SearchInput from "../ui/SearchInput";
 
 import { Icon } from "@iconify/vue";
-import { ref } from "vue";
+import { computed, ref } from "vue";
+import { useStore } from "vuex";
 
 export default {
   components: {
-    CounterBtn,
     Icon,
     SearchInput,
   },
 
   setup() {
-    const count = ref(2);
-    const orderSummaryData = ref({
-      priceType: ["Subtotal", "Shipping fee", "Coupon"],
-      price: ["$998", "$20", "no"],
-    });
+    const store = useStore();
 
-    return { count, orderSummaryData };
+    const productsCart = ref();
+
+    if (localStorage.getItem("cartProducts")) {
+      productsCart.value = JSON.parse(localStorage.getItem("cartProducts"));
+    } else {
+      productsCart.value = computed(() => store.state.cartProducts);
+    }
+
+    const total = ref();
+
+    function adjustTotal() {
+      total.value = productsCart.value.reduce((acc, item) => {
+        return (acc += item.price * item.quantity);
+      }, 0);
+    }
+
+    adjustTotal();
+
+    return { productsCart, total, adjustTotal };
   },
 };
 </script>
@@ -146,5 +197,45 @@ export default {
       border-radius: 5px;
     }
   }
+}
+
+.counter {
+  background-color: $background_second_card_border;
+  border-radius: 5px;
+  font-size: 20px;
+  user-select: none;
+  padding: 0.7rem 0;
+  transform: translateX(10px);
+  margin-bottom: 0 !important;
+  padding: 0.4rem !important;
+  justify-content: space-between !important;
+  button {
+    margin: 2px !important;
+  }
+}
+@media (max-width: 460px) {
+  .counter {
+    width: 100%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .counter {
+    transform: translateX(25px);
+  }
+}
+
+@media (min-width: 991px) and (max-width: 1199px) {
+  .counter {
+    transform: translateX(15px);
+  }
+}
+
+button {
+  transition: 0.3s;
+  cursor: pointer;
+}
+button:hover {
+  color: $second_color;
 }
 </style>

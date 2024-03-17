@@ -4,7 +4,7 @@
     :class="{ hoverGray: grayHover, hoverBlue: blueHover, disabled: !disabled }"
   >
     <a href="#" class="link-color d-block h6 mb-2"><slot></slot></a>
-    <span class="line d-block bg-white"></span>
+    <span class="line d-block"></span>
   </div>
 </template>
 
@@ -20,7 +20,10 @@ export default {
   cursor: pointer;
   transition: 0.3s;
   .line {
+    transition: 0.5s;
     height: 2px;
+    width: 0;
+    background-color: rgb(230, 230, 230) !important;
   }
 }
 .hoverGray {
@@ -29,8 +32,8 @@ export default {
   }
   &:hover {
     color: rgb(230, 230, 230) !important;
-    span {
-      background-color: rgb(230, 230, 230) !important;
+    .line {
+      width: 100%;
     }
   }
 }
@@ -42,7 +45,8 @@ export default {
   }
   &:hover {
     color: $second_color !important;
-    span {
+    .line {
+      width: 100%;
       background-color: $second_color !important;
     }
   }

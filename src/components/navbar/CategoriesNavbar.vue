@@ -3,7 +3,9 @@
     <div
       class="d-flex justify-content-center flex-column align-items-start align-items-lg-center"
     >
-      <h1 class="heading-categories mb-4">Bouncer</h1>
+      <h1 class="heading-categories mb-4">
+        <router-link to="/"> Bouncer</router-link>
+      </h1>
 
       <ul
         class="links-categories list-unstyled d-flex flex-column flex-lg-row mb-4 text-start text-lg-center"
@@ -59,7 +61,9 @@ export default {
 
 <style lang="scss" scoped>
 .heading-categories {
-  color: $color_heading_categories;
+  a {
+    color: $color_heading_categories !important;
+  }
 }
 .router-link-exact-active {
   color: #2e90e5 !important;

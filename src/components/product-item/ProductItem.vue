@@ -12,16 +12,25 @@
         <div
           class="overlay position-absolute d-flex align-items-center justify-content-center"
         >
-          <Icon
-            icon="ph:heart-straight-fill"
-            width="1.5rem"
-            class="me-3 blue-icon"
-          ></Icon>
-          <Icon
-            icon="map:grocery-or-supermarket"
-            width="1.5rem"
-            class="me-3 blue-icon"
-          ></Icon>
+          <div class="love p-3" @click="loveData = !loveData">
+            <Icon
+              class="blue-icon"
+              :icon="!loveData ? 'ph:heart-light' : 'ph:heart-straight-fill'"
+              width="1.5rem"
+              :key="loveData"
+            ></Icon>
+          </div>
+
+          <router-link to="/cart">
+            <div class="cart p-3" @click="addProductToCart(1)">
+              <Icon
+                icon="material-symbols-light:shopping-cart-outline-sharp"
+                width="1.9rem"
+                class="blue-icon"
+                :key="cartData"
+              ></Icon>
+            </div>
+          </router-link>
         </div>
         <img :src="dataProduct?.image" alt="product image" class="img-fluid" />
       </div>
@@ -48,7 +57,8 @@ import ProductPriceCmpo from "./ProductPriceCmpo.vue";
 import IconRate from "../ui/IconsRate.vue";
 import { Icon } from "@iconify/vue";
 
-// import { useStore } from "vuex";
+import { ref } from "vue";
+import { useStore } from "vuex";
 
 export default {
   props: ["dataProduct", "column", "row", "columnSmallScreen"],
@@ -56,6 +66,18 @@ export default {
     ProductPriceCmpo,
     IconRate,
     Icon,
+  },
+
+  setup(props) {
+    const loveData = ref(false);
+    const cartData = ref(false);
+    const store = useStore();
+
+    function addProductToCart(qty) {
+      store.commit("setProductCart", { product: props.dataProduct, qty });
+    }
+
+    return { loveData, cartData, addProductToCart };
   },
 };
 </script>
@@ -68,6 +90,7 @@ export default {
     height: 167px;
     img {
       max-height: 150px !important;
+      user-select: none;
     }
   }
   flex-direction: column;
