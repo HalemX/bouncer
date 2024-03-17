@@ -26,7 +26,7 @@
         <img :src="dataProduct?.image" alt="product image" class="img-fluid" />
       </div>
 
-      <router-link :to="`/product/${dataProduct?.id}`">
+      <router-link :to="`/products/${dataProduct?.id}`">
         <div class="info-product" :class="{ 'text-start': row }">
           <div class="icons">
             <IconRate :numRate="dataProduct?.rating?.rate" />

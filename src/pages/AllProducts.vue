@@ -7,7 +7,7 @@
           <HoldSidebar />
         </div>
         <div class="col-lg-9">
-          <MainProducts />
+          <MainAllProducts />
         </div>
       </div>
     </div>
@@ -17,21 +17,16 @@
 <script>
 import BreadCrumb from "@/components/ui/BreadCrumb.vue";
 import HoldSidebar from "@/components/products/HoldSidebar.vue";
-import MainProducts from "@/components/products/MainProducts.vue";
-
-import { useRoute } from "vue-router";
+import MainAllProducts from "@/components/products/MainAllProducts.vue";
 
 export default {
   components: {
     BreadCrumb,
     HoldSidebar,
-    MainProducts,
+    MainAllProducts,
   },
   setup() {
-    const route = useRoute();
-    const breadcrumbData = [
-      { title: "products", link: `/products/${route.params.slug} ` },
-    ];
+    const breadcrumbData = [{ title: "products", link: "/products" }];
 
     return { breadcrumbData };
   },

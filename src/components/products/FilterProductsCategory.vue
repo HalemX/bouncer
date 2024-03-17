@@ -5,7 +5,7 @@
     >
       <div class="filter-details d-flex align-items-center">
         <div class="num-items d-none align-items-center me-5 d-lg-flex">
-          <span class="me-1">13</span>
+          <span class="me-1">{{ allProducts.length }}</span>
           <p class="mb-0">Items</p>
         </div>
         <div class="sort-by align-items-center me-5 d-flex">
@@ -14,15 +14,6 @@
             firstOption="Name"
             secondOption="Price"
             customizeStyle="customize-style"
-          ></select-button>
-        </div>
-        <div class="show-num d-none align-items-center d-lg-flex">
-          <p class="mb-0 me-2">Show</p>
-          <select-button
-            firstOption="12"
-            secondOption="6"
-            customizeStyle="customize-style"
-            @change="count === 12 ? (count = 6) : (count = 12)"
           ></select-button>
         </div>
       </div>
@@ -52,13 +43,20 @@
       <SideBar :showSmallScreen="showSidebarToggle" />
     </teleport>
 
-    <swiper :pagination="pagination" :modules="modules" class="products-swiper">
-      <swiper-slide v-for="i in 5" :key="i">
+    <swiper
+      :pagination="pagination"
+      :modules="modules"
+      class="products-swiper"
+      @swiper="handlePagination"
+      @slide-change="handlePagination"
+      v-if="allProducts.length > 6"
+    >
+      <swiper-slide v-for="i in paginationNum" :key="i">
         <transition-group @before-enter="beforeEnter" @enter="enter">
-          <div class="products row g-3 text-center mb-4" :key="count">
+          <div class="products row g-3 text-center mb-4">
             <div
               class="container-product col-lg-4 col-sm-6"
-              v-for="(item, i) in allProducts"
+              v-for="(item, i) in result"
               :key="i"
             >
               <product-item column="column" :data-product="item">
@@ -67,6 +65,15 @@
           </div> </transition-group
       ></swiper-slide>
     </swiper>
+    <div class="products row g-3 text-center mb-4" v-else>
+      <div
+        class="container-product col-lg-4 col-sm-6"
+        v-for="(item, i) in result"
+        :key="i"
+      >
+        <product-item column="column" :data-product="item"> </product-item>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -100,12 +107,27 @@ export default {
     SwiperSlide,
   },
   setup() {
-    const count = ref(12);
     const showSidebarToggle = ref(false);
-    const route = useRoute();
+    const start = ref(0);
+    const end = ref(6);
+    const paginationNum = ref();
     const allProducts = ref([]);
+    const result = ref([]);
+    const swiperActiveIndex = ref();
+    const route = useRoute();
 
     onMounted(async () => {
+      await getProductByCategory(route.params.slug);
+    });
+
+    function handlePagination(value) {
+      swiperActiveIndex.value = value.activeIndex + 1;
+
+      end.value = swiperActiveIndex.value * 6;
+      start.value = end.value - 6;
+    }
+
+    watch((start, end), async () => {
       await getProductByCategory(route.params.slug);
     });
 
@@ -117,6 +139,14 @@ export default {
 
       const responseData = await response.json();
       allProducts.value = responseData;
+
+      if (end.value <= allProducts.value.length) {
+        result.value = allProducts.value.slice(start.value, end.value);
+      } else {
+        result.value = allProducts.value.slice(start.value);
+      }
+
+      paginationNum.value = Math.ceil(allProducts.value.length / 6);
     }
 
     watch(
@@ -139,9 +169,14 @@ export default {
     };
 
     return {
-      allProducts,
-      count,
       showSidebarToggle,
+      paginationNum,
+      start,
+      end,
+      allProducts,
+      result,
+      handlePagination,
+      swiperActiveIndex,
       beforeEnter,
       enter,
       pagination: {

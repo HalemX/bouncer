@@ -1,11 +1,9 @@
 <template>
   <div class="container-breadcrumb p-2 mt-5 mb-3">
-    <div
-      class="flex-column flex-sm-row d-flex align-items-center justify-content-center pt-3"
-    >
-      <ul class="list-unstyled d-flex">
+    <div class="d-flex align-items-center justify-content-center pt-3">
+      <ul class="list-unstyled d-flex overflow-auto pb-3">
         <li class="me-2">
-          <router-link :to="{ name: 'home' }" class="link text-dark"
+          <router-link :to="{ name: 'home' }" class="link text-dark text-nowrap"
             >Home >
           </router-link>
         </li>
@@ -13,10 +11,10 @@
           <router-link
             v-if="data.length - 1 !== data.indexOf(item)"
             :to="item.link"
-            class="text-dark link me-1"
+            class="text-dark link me-1 text-nowrap"
             >{{ item.title }} >
           </router-link>
-          <span v-else>{{ item.title }}</span>
+          <span v-else class="text-nowrap">{{ item.title }}</span>
         </li>
       </ul>
     </div>

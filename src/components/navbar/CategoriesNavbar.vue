@@ -15,12 +15,19 @@
             >HOME</router-link
           >
         </li>
-
-        <li v-for="(item, i) in categories" :key="i">
+        <li>
           <router-link
             class="link link-categories text-dark mb-2 d-block mx-lg-4"
-            :to="`/products/${item}`"
-            >{{ item }}</router-link
+            to="/products"
+            >STORE</router-link
+          >
+        </li>
+
+        <li v-for="(category, i) in categories" :key="i">
+          <router-link
+            class="link link-categories text-dark mb-2 d-block mx-lg-4"
+            :to="`/products/cat/${category}`"
+            >{{ category.toUpperCase() }}</router-link
           >
         </li>
       </ul>
@@ -53,5 +60,8 @@ export default {
 <style lang="scss" scoped>
 .heading-categories {
   color: $color_heading_categories;
+}
+.router-link-exact-active {
+  color: #2e90e5 !important;
 }
 </style>

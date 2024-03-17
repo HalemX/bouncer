@@ -10,18 +10,18 @@
       handle-align="handleAlign"
       class="main p-3 mb-3"
     ></main-product>
-    <FilterProducts />
+    <FilterAllProducts />
   </div>
 </template>
 
 <script>
 import MainProduct from "../product-item/MainProduct";
-import FilterProducts from "./FilterProducts.vue";
+import FilterAllProducts from "./FilterAllProducts.vue";
 
 export default {
   components: {
     MainProduct,
-    FilterProducts,
+    FilterAllProducts,
   },
 };
 </script>

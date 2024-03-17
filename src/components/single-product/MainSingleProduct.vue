@@ -94,7 +94,7 @@ export default {
       () => route.params.id,
       () => {
         getSingleProduct(route.params.id);
-        getRelatedProducts;
+        getRelatedProducts();
       }
     );
 

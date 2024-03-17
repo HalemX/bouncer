@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 import HomePage from "../pages/HomePage.vue";
-import productsGrid from "../pages/ProductsGrid.vue";
+import AllProducts from "@/pages/AllProducts.vue";
+import ProductsByCategory from "../pages/ProductsByCategory.vue";
 import SingleProductVue from "@/pages/SingleProduct.vue";
 import CartPage from "@/pages/CartPage.vue";
 
@@ -12,12 +13,17 @@ const routes = [
     component: HomePage,
   },
   {
-    path: "/products/:slug",
-    name: "products",
-    component: productsGrid,
+    path: "/products",
+    name: "allProducts",
+    component: AllProducts,
   },
   {
-    path: "/product/:id",
+    path: "/products/cat/:slug",
+    name: "productsByCategory",
+    component: ProductsByCategory,
+  },
+  {
+    path: "/products/:id",
     name: "singleProduct",
     component: SingleProductVue,
   },
