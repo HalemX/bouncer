@@ -1,6 +1,9 @@
 import { createApp } from "vue";
 import { MotionPlugin } from "@vueuse/motion";
 
+import ToastPlugin from "vue-toast-notification";
+import "vue-toast-notification/dist/theme-bootstrap.css";
+
 import App from "./App.vue";
 
 // Bootstrap
@@ -16,4 +19,4 @@ import store from "./store/index";
 
 const app = createApp(App);
 
-app.use(router).use(store).use(MotionPlugin).mount("#app");
+app.use(router).use(store).use(MotionPlugin).use(ToastPlugin).mount("#app");

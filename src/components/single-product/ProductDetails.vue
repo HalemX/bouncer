@@ -69,12 +69,32 @@
       class="counter-add-cart py-4 pe-0 d-flex align-items-center flex-wrap flex-sm-nowrap justify-content-between"
     >
       <div class="counter">
-        <CounterBtn />
+        <div
+          class="counter d-flex align-items-center px-3 mb-2 mb-sm-0 justify-content-center"
+        >
+          <button
+            class="minus d-block me-4 border-0 bg-transparent"
+            @click="
+              numberItemsProduct > 0 ? numberItemsProduct-- : numberItemsProduct
+            "
+            :disabled="numberItemsProduct <= 1"
+          >
+            -
+          </button>
+          <p class="num mb-0">{{ numberItemsProduct }}</p>
+          <button
+            class="minus d-block ms-4 border-0 bg-transparent"
+            @click="numberItemsProduct++"
+          >
+            +
+          </button>
+        </div>
       </div>
       <div class="add-cart-love d-flex align-items-center">
-        <router-link :to="{ name: 'cart' }">
+        <router-link to="/cart">
           <button
             class="add-cart d-flex align-items-center border-0 p-3 me-3 justify-content-center"
+            @click="addProductToCart(numberItemsProduct)"
           >
             <Icon
               icon="material-symbols:shopping-cart-outline-sharp"
@@ -107,10 +127,10 @@ import ProductPriceCmpo from "../product-item/ProductPriceCmpo.vue";
 import ColorsFilter from "../ui/ColorsFilter.vue";
 import SelectButton from "../ui/SelectButton.vue";
 import PlatformBtns from "../ui/PlatformBtns.vue";
-import CounterBtn from "../ui/CounterBtn.vue";
 
 import { Icon } from "@iconify/vue";
 import { ref } from "vue";
+import { useStore } from "vuex";
 
 export default {
   props: ["singleProduct"],
@@ -121,14 +141,19 @@ export default {
     ColorsFilter,
     SelectButton,
     PlatformBtns,
-    CounterBtn,
   },
-  setup() {
+  setup(props) {
     const loved = ref(false);
+    const numberItemsProduct = ref(1);
     const colors = ["#2e90e5", "red", "black", "#EFDFDF"];
     const infoProduct = ["Availability:", "Category:"];
+    const store = useStore();
 
-    return { colors, loved, infoProduct };
+    function addProductToCart(qty) {
+      store.commit("setProductCart", { product: props.singleProduct, qty });
+    }
+
+    return { colors, loved, infoProduct, addProductToCart, numberItemsProduct };
   },
 };
 </script>

@@ -18,7 +18,7 @@
         <Icon icon="solar:shop-minimalistic-bold" width="1.5rem"></Icon>
 
         <div class="counter px-1 d-flex align-items-center">
-          <span>{{ productsCart.length }}</span>
+          <!-- <span>{{ productsCart.length }}</span> -->
         </div>
 
         <a class="link text-dark" href="#">Items</a>
@@ -57,8 +57,8 @@
 <script>
 import { Icon } from "@iconify/vue";
 
-import { ref, computed } from "vue";
-import { useStore } from "vuex";
+import { ref } from "vue";
+// import { useStore } from "vuex";
 
 export default {
   components: {
@@ -68,7 +68,8 @@ export default {
   setup() {
     const toggleBurgerIconDate = ref(false);
     const toggleSearchIconDate = ref(false);
-    const store = useStore();
+    // const store = useStore();
+    // const productsCart = ref();
 
     function toggleBurgerIcon() {
       toggleBurgerIconDate.value = !toggleBurgerIconDate.value;
@@ -78,14 +79,18 @@ export default {
       toggleSearchIconDate.value = !toggleSearchIconDate.value;
     }
 
-    const productsCart = computed(() => store.state.cartProducts);
+    // if (localStorage.getItem("cartProducts")) {
+    //   productsCart.value = JSON.parse(localStorage.getItem("cartProducts"));
+    // } else {
+    //   productsCart.value = computed(() => store.state.cartProducts);
+    // }
 
     return {
       toggleBurgerIcon,
       toggleBurgerIconDate,
       toggleSearchIcon,
       toggleSearchIconDate,
-      productsCart,
+      // productsCart,
     };
   },
 };

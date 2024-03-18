@@ -4,7 +4,7 @@
       <table class="table">
         <thead>
           <tr>
-            <th>FRODUCT</th>
+            <th>PRODUCT</th>
             <th class="text-center price">PRICE</th>
             <th class="text-center">QTY</th>
             <th class="text-center text-nowrap">UNIT PRICE</th>
@@ -19,25 +19,22 @@
                     icon="material-symbols-light:close-rounded"
                     class="d-block fw-normal"
                     width="1rem"
-                    @click="
-                      productsCart.splice(productsCart.indexOf(item), 1);
-                      adjustTotal();
-                    "
+                    @click="removeItem(item)"
                   />
                 </div>
                 <img
-                  :src="item.image"
+                  :src="item?.image"
                   alt=""
                   class="img-fluid mx-3"
                   width="110px"
                 />
                 <p class="info m-0">
-                  {{ item.title }}
+                  {{ item?.title }}
                 </p>
               </div>
             </td>
             <td class="price text-center align-middle py-5">
-              ${{ (item.price * item.quantity).toFixed(2) }}
+              ${{ (item?.price * item?.quantity).toFixed(2) }}
             </td>
             <td class="align-middle text-center py-5">
               <div
@@ -46,14 +43,14 @@
                 <button
                   class="minus d-block me-4 border-0 bg-transparent"
                   @click="
-                    item.quantity > 0 ? item.quantity-- : item.quantity;
+                    item?.quantity > 0 ? item.quantity-- : item?.quantity;
                     adjustTotal();
                   "
-                  :disabled="item.quantity <= 1"
+                  :disabled="item?.quantity <= 1"
                 >
                   -
                 </button>
-                <p class="num mb-0">{{ item.quantity }}</p>
+                <p class="num mb-0">{{ item?.quantity }}</p>
                 <button
                   class="minus d-block ms-4 border-0 bg-transparent"
                   @click="
@@ -65,7 +62,7 @@
                 </button>
               </div>
             </td>
-            <td class="text-center align-middle py-5">${{ item.price }}</td>
+            <td class="text-center align-middle py-5">${{ item?.price }}</td>
           </tr>
         </tbody>
       </table>
@@ -86,7 +83,7 @@
             class="subtotal d-flex align-items-center justify-content-between mb-4"
           >
             <p class="mb-0">Subtotal</p>
-            <span>{{ total.toFixed(2) }}</span>
+            <span>{{ total?.toFixed(2) }}</span>
           </div>
           <div
             class="subtotal d-flex align-items-center justify-content-between mb-4"
@@ -106,7 +103,7 @@
           class="total d-flex align-items-center justify-content-between my-4"
         >
           <p class="h3">TOTAL</p>
-          <span class="h3">{{ total.toFixed(2) }}</span>
+          <span class="h3">{{ total?.toFixed(2) }}</span>
         </div>
 
         <div class="checkout-btn text-center">
@@ -118,10 +115,11 @@
 </template>
 
 <script>
+// import router from "@/router";
 import SearchInput from "../ui/SearchInput";
 
 import { Icon } from "@iconify/vue";
-import { computed, ref } from "vue";
+import { onMounted, ref, computed } from "vue";
 import { useStore } from "vuex";
 
 export default {
@@ -132,16 +130,11 @@ export default {
 
   setup() {
     const store = useStore();
-
-    const productsCart = ref();
-
-    if (localStorage.getItem("cartProducts")) {
-      productsCart.value = JSON.parse(localStorage.getItem("cartProducts"));
-    } else {
-      productsCart.value = computed(() => store.state.cartProducts);
-    }
-
     const total = ref();
+    // const productsCart = ref();
+    // productsCart.value = store.state.cartProducts;
+
+    const productsCart = computed(() => store.state.cartProducts);
 
     function adjustTotal() {
       total.value = productsCart.value.reduce((acc, item) => {
@@ -149,9 +142,15 @@ export default {
       }, 0);
     }
 
-    adjustTotal();
-
-    return { productsCart, total, adjustTotal };
+    onMounted(() => {
+      if (productsCart.value.length) {
+        adjustTotal();
+      }
+    });
+    function removeItem(item) {
+      store.commit("removeItem", item);
+    }
+    return { productsCart, total, adjustTotal, removeItem };
   },
 };
 </script>

@@ -21,16 +21,20 @@
             ></Icon>
           </div>
 
-          <router-link to="/cart">
-            <div class="cart p-3" @click="addProductToCart(1)">
-              <Icon
-                icon="material-symbols-light:shopping-cart-outline-sharp"
-                width="1.9rem"
-                class="blue-icon"
-                :key="cartData"
-              ></Icon>
-            </div>
-          </router-link>
+          <div
+            class="cart p-3"
+            @click="
+              addProductToCart(1);
+              showToast();
+            "
+          >
+            <Icon
+              icon="material-symbols-light:shopping-cart-outline-sharp"
+              width="1.9rem"
+              class="blue-icon"
+              :key="cartData"
+            ></Icon>
+          </div>
         </div>
         <img :src="dataProduct?.image" alt="product image" class="img-fluid" />
       </div>
@@ -56,6 +60,8 @@
 import ProductPriceCmpo from "./ProductPriceCmpo.vue";
 import IconRate from "../ui/IconsRate.vue";
 import { Icon } from "@iconify/vue";
+import { useToast } from "vue-toast-notification";
+import "vue-toast-notification/dist/theme-sugar.css";
 
 import { ref } from "vue";
 import { useStore } from "vuex";
@@ -72,12 +78,21 @@ export default {
     const loveData = ref(false);
     const cartData = ref(false);
     const store = useStore();
+    const toast = useToast();
 
     function addProductToCart(qty) {
       store.commit("setProductCart", { product: props.dataProduct, qty });
     }
 
-    return { loveData, cartData, addProductToCart };
+    function showToast() {
+      toast.open({
+        message: "Product Added To Cart",
+        duration: 1000,
+        position: "top-right",
+      });
+    }
+
+    return { loveData, cartData, addProductToCart, showToast };
   },
 };
 </script>
