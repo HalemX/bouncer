@@ -81,8 +81,6 @@ export default {
   background-color: $color_background_burger;
   height: 100%;
   width: 60%;
-  border-top-left-radius: $border_rad;
-  border-bottom-left-radius: $border_rad;
   z-index: 100;
 }
 

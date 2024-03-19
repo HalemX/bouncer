@@ -43,28 +43,7 @@
       <SideBar :showSmallScreen="showSidebarToggle" />
     </teleport>
 
-    <swiper
-      :pagination="pagination"
-      :modules="modules"
-      class="products-swiper"
-      @swiper="handlePagination"
-      @slide-change="handlePagination"
-      v-if="allProducts.length > 6"
-    >
-      <swiper-slide v-for="i in paginationNum" :key="i">
-        <transition-group @before-enter="beforeEnter" @enter="enter">
-          <div class="products row g-3 text-center mb-4">
-            <div
-              class="container-product col-lg-4 col-sm-6"
-              v-for="(item, i) in result"
-              :key="i"
-            >
-              <product-item column="column" :data-product="item">
-              </product-item>
-            </div>
-          </div> </transition-group
-      ></swiper-slide>
-    </swiper>
+    <BaseSpinner v-if="isLoading" />
     <div class="products row g-3 text-center mb-4" v-else>
       <div
         class="container-product col-lg-4 col-sm-6"
@@ -81,21 +60,12 @@
 import SelectButton from "../ui/SelectButton.vue";
 import ProductItem from "../product-item/ProductItem.vue";
 import SideBar from "./SideBar.vue";
+import BaseSpinner from "../ui/BaseSpinner.vue";
 
 import { Icon } from "@iconify/vue";
 import gsap from "gsap";
 import { onMounted, ref, watch } from "vue";
 import { useRoute } from "vue-router";
-
-// Import Swiper Vue.js components
-import { Swiper, SwiperSlide } from "swiper/vue";
-// Import Swiper styles
-import "swiper/css";
-
-import "swiper/css/pagination";
-
-// import required modules
-import { Pagination } from "swiper/modules";
 
 export default {
   components: {
@@ -103,8 +73,7 @@ export default {
     ProductItem,
     SideBar,
     Icon,
-    Swiper,
-    SwiperSlide,
+    BaseSpinner,
   },
   setup() {
     const showSidebarToggle = ref(false);
@@ -115,9 +84,13 @@ export default {
     const result = ref([]);
     const swiperActiveIndex = ref();
     const route = useRoute();
+    const isLoading = ref(false);
 
     onMounted(async () => {
+      isLoading.value = true;
+
       await getProductByCategory(route.params.slug);
+      isLoading.value = false;
     });
 
     function handlePagination(value) {
@@ -128,16 +101,22 @@ export default {
     }
 
     watch((start, end), async () => {
+      isLoading.value = true;
       await getProductByCategory(route.params.slug);
+      isLoading.value = false;
     });
 
     // Fetch By Category
     async function getProductByCategory(category) {
+      isLoading.value = true;
+
       const response = await fetch(
         `https://fakestoreapi.com/products/category/${category}`
       );
 
       const responseData = await response.json();
+      isLoading.value = false;
+
       allProducts.value = responseData;
 
       if (end.value <= allProducts.value.length) {
@@ -175,17 +154,11 @@ export default {
       end,
       allProducts,
       result,
+      isLoading,
       handlePagination,
       swiperActiveIndex,
       beforeEnter,
       enter,
-      pagination: {
-        clickable: true,
-        renderBullet: function (index, className) {
-          return '<span class="' + className + '">' + (index + 1) + "</span>";
-        },
-      },
-      modules: [Pagination],
     };
   },
 };

@@ -4,7 +4,12 @@
     :class="{ hoverGray: grayHover, hoverBlue: blueHover, disabled: !disabled }"
   >
     <a href="#" class="link-color d-block h6 mb-2"><slot></slot></a>
-    <span class="line d-block"></span>
+    <span class="line d-block" v-if="grayHover"></span>
+
+    <div class="special-line d-flex" v-else>
+      <span class="line d-block"></span>
+      <span class="line d-block ms-auto"></span>
+    </div>
   </div>
 </template>
 
@@ -46,7 +51,7 @@ export default {
   &:hover {
     color: $second_color !important;
     .line {
-      width: 100%;
+      width: 50%;
       background-color: $second_color !important;
     }
   }

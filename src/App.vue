@@ -42,7 +42,8 @@ export default {
 }
 
 body {
-  font-family: "Roboto", sans-serif;
+  font-family: "Proxima Nova, Proxima Nova Rg, Proxima Nova Lt ", sans-serif !important;
+  user-select: none;
 }
 
 a {
@@ -54,12 +55,12 @@ svg {
 }
 
 .active {
-  color: $color_hover_active !important;
+  color: #2e90e5 !important;
 }
 
 .link {
   &:hover {
-    color: $color_hover_active !important;
+    color: #2e90e5 !important;
     transition: 0.3s;
   }
 }

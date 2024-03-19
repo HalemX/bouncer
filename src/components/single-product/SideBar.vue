@@ -1,5 +1,5 @@
 <template>
-  <div class="allow-sticky container">
+  <div class="allow-sticky container" v-if="!isLoading">
     <div class="container-sidebar py-5 position-sticky mb-3">
       <div class="best-seller">
         <h5 class="header-sidebar mb-3 ps-3">BEST SELLER</h5>
@@ -41,13 +41,16 @@ export default {
       img: "50051823_540375",
     };
     const data = ref([]);
+    const isLoading = ref(false);
 
     // Fetch bestseller
     async function getBestsellerProducts(limit) {
+      isLoading.value = true;
       const response = await fetch(
         `https://fakestoreapi.com/products?limit=${limit}`
       );
       const responseData = await response.json();
+      isLoading.value = false;
 
       data.value = responseData;
     }
@@ -56,7 +59,7 @@ export default {
       await getBestsellerProducts(4);
     });
 
-    return { landingCardData, data };
+    return { landingCardData, data, isLoading };
   },
 };
 </script>

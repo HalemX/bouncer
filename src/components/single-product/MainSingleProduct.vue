@@ -1,5 +1,6 @@
 <template>
-  <div class="main-single-product row mb-5">
+  <BaseSpinner v-if="isLoading" />
+  <div class="main-single-product row mb-5" v-else>
     <div class="image-swiper-product col-lg-5">
       <SliderImage :singleProduct="singleProduct" />
     </div>
@@ -34,6 +35,7 @@ import SliderImage from "./SliderImage.vue";
 import ProductDetails from "./ProductDetails.vue";
 import ProductInfo from "./ProductInfo.vue";
 import SliderProductItem from "../product-item/SliderProductItem.vue";
+import BaseSpinner from "../ui/BaseSpinner.vue";
 
 import { useRoute } from "vue-router";
 import { onMounted, ref, watch } from "vue";
@@ -45,6 +47,7 @@ export default {
     ProductDetails,
     ProductInfo,
     SliderProductItem,
+    BaseSpinner,
   },
   setup(_, { emit }) {
     const count = 8;
@@ -52,11 +55,14 @@ export default {
     const singleProduct = ref({});
     const bestSellerProducts = ref([]);
     const productsRelated = ref([]);
+    const isLoading = ref(false);
 
     // Fetch Single Product
     async function getSingleProduct(id) {
+      isLoading.value = true;
       const response = await fetch(`https://fakestoreapi.com/products/${id}`);
       const responseData = await response.json();
+      isLoading.value = false;
 
       singleProduct.value = responseData;
     }
@@ -83,6 +89,7 @@ export default {
         `https://fakestoreapi.com/products/category/${singleProduct.value.category}`
       );
       const responseData = await response.json();
+
       const result = responseData.filter((product) => {
         return product.id != singleProduct.value.id;
       });
@@ -110,6 +117,7 @@ export default {
       bestSellerProducts,
       productsRelated,
       emitSingleProductToParent,
+      isLoading,
     };
   },
 };

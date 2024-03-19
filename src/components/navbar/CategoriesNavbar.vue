@@ -3,8 +3,8 @@
     <div
       class="d-flex justify-content-center flex-column align-items-start align-items-lg-center"
     >
-      <h1 class="heading-categories mb-4">
-        <router-link to="/"> Bouncer</router-link>
+      <h1 class="heading-categories mb-5 fw-bold">
+        <router-link to="/"> BOUNCER</router-link>
       </h1>
 
       <ul
@@ -14,23 +14,26 @@
           <router-link
             class="link link-categories text-dark mb-2 d-block mx-lg-4"
             to="/"
-            >HOME</router-link
-          >
+            >HOME
+            <span class="line-category link d-block"></span>
+          </router-link>
         </li>
         <li>
           <router-link
             class="link link-categories text-dark mb-2 d-block mx-lg-4"
             to="/products"
-            >STORE</router-link
-          >
+            >STORE
+            <span class="line-category link d-block"></span>
+          </router-link>
         </li>
 
         <li v-for="(category, i) in categories" :key="i">
           <router-link
             class="link link-categories text-dark mb-2 d-block mx-lg-4"
             :to="`/products/cat/${category}`"
-            >{{ category.toUpperCase() }}</router-link
-          >
+            >{{ category.toUpperCase() }}
+            <span class="line-category link d-block"></span>
+          </router-link>
         </li>
       </ul>
     </div>
@@ -61,11 +64,15 @@ export default {
 
 <style lang="scss" scoped>
 .heading-categories {
+  letter-spacing: 5px;
   a {
     color: $color_heading_categories !important;
   }
 }
 .router-link-exact-active {
   color: #2e90e5 !important;
+  .line-category {
+    width: 100%;
+  }
 }
 </style>

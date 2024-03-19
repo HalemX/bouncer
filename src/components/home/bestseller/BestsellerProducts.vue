@@ -9,7 +9,7 @@
         class="categories-filter list-unstyled d-flex justify-content-md-center mb-4 overflow-auto w-100 m-auto overflow-auto pb-2"
       >
         <li
-          class="link category text-dark mb-2 d-block mx-4 text-nowrap"
+          class="category text-dark mb-2 d-block mx-4 text-nowrap hoverBlue"
           :class="{ active: activeData == '' }"
           @click="
             count = 4;
@@ -19,6 +19,7 @@
           "
         >
           All
+          <span class="line-category link d-block"></span>
         </li>
         <li
           class="link category text-dark mb-2 d-block mx-4 text-nowrap"
@@ -33,12 +34,13 @@
           "
         >
           {{ category }}
+          <span class="line-category link d-block"></span>
         </li>
       </ul>
     </div>
   </div>
-
-  <div class="products-btn text-center">
+  <BaseSpinner v-if="isLoading" />
+  <div class="products-btn text-center" v-else>
     <div class="products row g-3 text-center mb-5">
       <transition-group @before-enter="beforeEnter" @enter="enter">
         <div
@@ -74,6 +76,7 @@
 import ProductItem from "../../product-item/ProductItem.vue";
 import SliderProductItem from "@/components/product-item/SliderProductItem.vue";
 import BaseButton from "../../ui/BaseButton.vue";
+import BaseSpinner from "@/components/ui/BaseSpinner.vue";
 
 import { ref, onMounted } from "vue";
 import gsap from "gsap";
@@ -83,6 +86,7 @@ export default {
     ProductItem,
     BaseButton,
     SliderProductItem,
+    BaseSpinner,
   },
   setup() {
     const allProducts = ref([]);
@@ -91,22 +95,27 @@ export default {
     const count = ref(4);
     const textBtn = ref("LOAD MORE");
     const activeData = ref("");
+    const isLoading = ref(false);
 
     // Fetch All Products
     async function getAllProducts() {
+      isLoading.value = true;
       const response = await fetch("https://fakestoreapi.com/products");
 
       const responseData = await response.json();
+      isLoading.value = false;
       allProducts.value = responseData;
     }
 
     // Fetch All Categories
     onMounted(async () => {
+      isLoading.value = true;
       const response = await fetch(
         "https://fakestoreapi.com/products/categories"
       );
 
       const responseData = await response.json();
+      isLoading.value = false;
       categories.value = responseData;
     });
 
@@ -122,8 +131,10 @@ export default {
     }
 
     onMounted(async () => {
+      isLoading.value = true;
       await getAllProducts();
       await getNumOfAllProducts(count.value);
+      isLoading.value = false;
     });
 
     async function loadMoreProducts() {
@@ -149,11 +160,13 @@ export default {
 
     // Fetch Category Without Limit
     async function getAllProductByCategory(category) {
+      isLoading.value = true;
       const response = await fetch(
         `https://fakestoreapi.com/products/category/${category}`
       );
 
       const responseData = await response.json();
+      isLoading.value = false;
       allProducts.value = responseData;
     }
 
@@ -195,12 +208,13 @@ export default {
       activeData,
       getAllProducts,
       allProducts,
+      isLoading,
     };
   },
 };
 </script>
 
-<style scoped>
+<style>
 .filter::-webkit-scrollbar {
   display: none;
 }
@@ -209,5 +223,15 @@ export default {
 }
 .active {
   color: #2e90e5 !important;
+}
+li:hover .line-category,
+.active .line-category {
+  width: 100%;
+}
+.line-category {
+  width: 0;
+  height: 2px;
+  transition: 0.5s;
+  background-color: #2e90e5;
 }
 </style>

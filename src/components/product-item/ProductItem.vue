@@ -12,17 +12,17 @@
         <div
           class="overlay position-absolute d-flex align-items-center justify-content-center"
         >
-          <div class="love p-3" @click="loveData = !loveData">
+          <div class="love p-2 me-3" @click="loveData = !loveData">
             <Icon
               class="blue-icon"
               :icon="!loveData ? 'ph:heart-light' : 'ph:heart-straight-fill'"
-              width="1.5rem"
+              width="1.9rem"
               :key="loveData"
             ></Icon>
           </div>
 
           <div
-            class="cart p-3"
+            class="cart p-2"
             @click="
               addProductToCart(1);
               showToast();
@@ -47,7 +47,7 @@
 
           <ProductPriceCmpo :price="dataProduct?.price" />
 
-          <p class="fw-bold text-dark mt-1" :title="dataProduct?.title">
+          <p class="text-dark mt-1" :title="dataProduct?.title">
             {{ dataProduct?.title.slice(0, 25) }}
           </p>
         </div>
@@ -134,6 +134,18 @@ export default {
   transform: translateX(-500px);
   .blue-icon {
     color: $second_color;
+  }
+  .love,
+  .cart {
+    border: 3px solid rgba(#2e90e5, 0.3);
+    border-radius: 50%;
+    transition: 0.3s;
+  }
+  .love,
+  .cart {
+    &:hover {
+      border: 3px solid rgba(#2e90e5, 1);
+    }
   }
 }
 

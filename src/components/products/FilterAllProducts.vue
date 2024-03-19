@@ -43,13 +43,14 @@
       <SideBar :showSmallScreen="showSidebarToggle" />
     </teleport>
 
+    <BaseSpinner v-if="isLoading" />
     <swiper
       :pagination="pagination"
       :modules="modules"
       class="products-swiper"
       @swiper="handlePagination"
       @slide-change="handlePagination"
-      v-if="allProducts.length > 6"
+      v-if="allProducts.length > 6 && !isLoading"
     >
       <swiper-slide v-for="i in paginationNum" :key="i" :class="{ i }">
         <transition-group @before-enter="beforeEnter" @enter="enter">
@@ -82,6 +83,7 @@
 import SelectButton from "../ui/SelectButton.vue";
 import ProductItem from "../product-item/ProductItem.vue";
 import SideBar from "./SideBar.vue";
+import BaseSpinner from "../ui/BaseSpinner.vue";
 
 import { Icon } from "@iconify/vue";
 import gsap from "gsap";
@@ -105,6 +107,7 @@ export default {
     Icon,
     Swiper,
     SwiperSlide,
+    BaseSpinner,
   },
   setup() {
     const showSidebarToggle = ref(false);
@@ -114,9 +117,12 @@ export default {
     const allProducts = ref([]);
     const result = ref([]);
     const swiperActiveIndex = ref();
+    const isLoading = ref(false);
 
     onMounted(async () => {
+      isLoading.value = true;
       await getAllProduct();
+      isLoading.value = false;
     });
 
     function handlePagination(value) {
@@ -166,6 +172,7 @@ export default {
       result,
       handlePagination,
       swiperActiveIndex,
+      isLoading,
       beforeEnter,
       enter,
       pagination: {

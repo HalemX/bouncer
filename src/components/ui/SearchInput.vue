@@ -21,22 +21,24 @@ export default {
 input {
   border: 1px solid rgba($color_border_nav_footer, 0.1);
   outline: none;
-  padding: 1rem 1.5rem;
+  padding: 1rem 1rem !important;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
-  @media ($max_sm) {
-    padding: 1rem 1rem !important;
-  }
 }
 button {
   border: 1px solid $second_color;
   outline: none;
-  padding: 1rem 1.5rem;
+  padding: 1rem 2rem !important;
   background-color: $second_color;
   color: white;
   border-top-right-radius: 5px;
+  transition: 0.3s;
   @media ($max_sm) {
     padding: 1rem 1rem !important;
+  }
+  &:hover {
+    background-color: #26669e;
+    border-color: #26669e;
   }
 }
 

@@ -73,6 +73,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
+a {
+  color: #22262a;
+  font-family: Proxima Nova Lt;
+}
+
 .show {
   .controlShow,
   .icon {

@@ -14,15 +14,20 @@
         >
       </li>
 
-      <li class="d-flex align-items-center me-md-5 mb-2 mb-lg-0">
-        <Icon icon="solar:shop-minimalistic-bold" width="1.5rem"></Icon>
-
-        <div class="counter px-1 d-flex align-items-center">
-          <!-- <span>{{ productsCart.length }}</span> -->
-        </div>
-
-        <a class="link text-dark" href="#">Items</a>
-      </li>
+      <router-link
+        to="/cart"
+        class="custom-margin d-flex align-items-center me-md-3 mb-2 mb-lg-0 text-dark"
+      >
+        <li
+          class="link d-flex align-items-center me-md-5 mb-2 mb-lg-0 text-dark"
+        >
+          <Icon icon="solar:shop-minimalistic-bold" width="1.5rem"></Icon>
+          <div class="counter px-1 d-flex align-items-center ms-2">
+            <span class="d-block pe-1">{{ update.length }}</span>
+            <span>Items</span>
+          </div>
+        </li>
+      </router-link>
 
       <li
         class="li-search d-flex flex-row-reverse flex-lg-row me-auto mb-2 mb-lg-0 d-none d-lg-flex"
@@ -36,7 +41,7 @@
             <input
               class="search-input px-2 py-1 w-100"
               type="text"
-              placeholder="Enter Product Name"
+              placeholder="enter product name"
             />
           </div>
         </transition>
@@ -57,8 +62,8 @@
 <script>
 import { Icon } from "@iconify/vue";
 
-import { ref } from "vue";
-// import { useStore } from "vuex";
+import { ref, computed, watch } from "vue";
+import { useStore } from "vuex";
 
 export default {
   components: {
@@ -68,8 +73,7 @@ export default {
   setup() {
     const toggleBurgerIconDate = ref(false);
     const toggleSearchIconDate = ref(false);
-    // const store = useStore();
-    // const productsCart = ref();
+    const store = useStore();
 
     function toggleBurgerIcon() {
       toggleBurgerIconDate.value = !toggleBurgerIconDate.value;
@@ -79,18 +83,17 @@ export default {
       toggleSearchIconDate.value = !toggleSearchIconDate.value;
     }
 
-    // if (localStorage.getItem("cartProducts")) {
-    //   productsCart.value = JSON.parse(localStorage.getItem("cartProducts"));
-    // } else {
-    //   productsCart.value = computed(() => store.state.cartProducts);
-    // }
+    const update = computed(() => store.state.cartProducts);
+    watch(update, (old, newValue) => {
+      console.log(old, newValue);
+    });
 
     return {
       toggleBurgerIcon,
       toggleBurgerIconDate,
       toggleSearchIcon,
       toggleSearchIconDate,
-      // productsCart,
+      update,
     };
   },
 };
@@ -98,7 +101,8 @@ export default {
 
 <style lang="scss" scoped>
 .search-input {
-  @include border(1px, solid, $color_border_nav_footer, 0.3, 3px);
+  @include border(1px, solid, #d5d5d54d, 0.3, 3px);
+
   &:focus {
     outline: none;
   }
@@ -115,5 +119,9 @@ export default {
 .search-animate-leave-to {
   transform: scale(1);
   opacity: 0;
+}
+
+.custom-margin {
+  margin-left: 4px;
 }
 </style>

@@ -1,6 +1,25 @@
 <template>
   <div class="container">
-    <div class="table-responsive">
+    <div
+      class="no-products-cart d-flex align-items-center justify-content-center flex-column p-4"
+      v-if="!productsCart.length"
+    >
+      <div class="icon-shopping mb-3">
+        <Icon
+          icon="material-symbols:shopping-cart-outline-sharp"
+          width="10rem"
+        ></Icon>
+      </div>
+      <h1 class="fw-bold mb-3">Ready To Fill Cart?</h1>
+      <router-link
+        to="/products"
+        class="text-dark button-shopping rounded-pill px-5 py-3"
+      >
+        <p class="mb-0">go shopping</p></router-link
+      >
+    </div>
+
+    <div class="table-responsive" v-else>
       <table class="table">
         <thead>
           <tr>
@@ -68,7 +87,10 @@
       </table>
     </div>
 
-    <div class="promo-code-total d-flex row p-3 mb-5 justify-content-between">
+    <div
+      class="promo-code-total d-flex row p-3 mb-5 justify-content-between"
+      v-if="productsCart.length"
+    >
       <div class="promo-code col-lg-6">
         <SearchInput
           place-holder="Voucher code"
@@ -131,8 +153,6 @@ export default {
   setup() {
     const store = useStore();
     const total = ref();
-    // const productsCart = ref();
-    // productsCart.value = store.state.cartProducts;
 
     const productsCart = computed(() => store.state.cartProducts);
 
@@ -236,5 +256,13 @@ button {
 }
 button:hover {
   color: $second_color;
+}
+.button-shopping {
+  cursor: pointer;
+  background-color: #f6f7f8;
+  transition: 0.3s;
+  &:hover {
+    background-color: #d1d2d3;
+  }
 }
 </style>

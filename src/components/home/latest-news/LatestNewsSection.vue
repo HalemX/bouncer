@@ -1,20 +1,16 @@
 <template>
   <div
-    class="latest-news-container container text-center mb-5"
+    class="latest-news-container container text-center"
     v-motion
     :initial="{ opacity: 0, y: 100 }"
     :visibleOnce="{ opacity: 1, y: 0 }"
   >
-    <div class="heading mb-4">
+    <div class="heading mb-5">
       <h2>LATEST NEWS</h2>
     </div>
 
     <div class="all-cards row g-3">
-      <div
-        class="container-card col-lg-4 col-sm-6 auto"
-        v-for="i in 3"
-        :key="i"
-      >
+      <div class="container-card col-lg-4 col-sm-6 auto">
         <div class="card-data">
           <div
             class="new-product px-2 d-flex align-items-center flex-column flex-sm-row"
@@ -34,11 +30,55 @@
           </div>
         </div>
       </div>
+      <div class="container-card col-lg-4 col-sm-6 auto">
+        <div class="card-data">
+          <div
+            class="new-product px-2 d-flex align-items-center flex-column flex-sm-row"
+          >
+            <div class="image-new-product">
+              <img
+                src="@/assets/images/Rectangle 2 copy 25.png"
+                alt=""
+                class="img-fluid"
+              />
+            </div>
+            <div class="info-new-product text-center text-sm-start ms-3">
+              <span class="d-block mb-2">01 Jan, 2015</span>
+              <h5 class="mb-2">Typesetting industry</h5>
+              <p>Lorem Ipsum is simply dummy text.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container-card col-lg-4 col-sm-6 auto">
+        <div class="card-data">
+          <div
+            class="new-product px-2 d-flex align-items-center flex-column flex-sm-row"
+          >
+            <div class="image-new-product">
+              <img
+                src="@/assets/images/Rectangle 1 copy 25.png"
+                alt=""
+                class="img-fluid"
+              />
+            </div>
+            <div class="info-new-product text-center text-sm-start ms-3">
+              <span class="d-block mb-2">01 Jan, 2015</span>
+              <h5 class="mb-2">Typesetting industry</h5>
+              <p>Lorem Ipsum is simply dummy text.</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
+.latest-news-container {
+  margin-bottom: 100px !important;
+}
+
 .auto {
   flex: auto;
 }
@@ -65,7 +105,9 @@
 .new-product {
   .info-new-product {
     p {
-      font-size: 14px;
+      color: #22262a;
+      line-height: 30px;
+      font-family: Proxima Nova Lt;
     }
     span {
       color: #c1c8ce;

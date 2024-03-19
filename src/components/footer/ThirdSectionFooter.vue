@@ -17,4 +17,7 @@
 p {
   color: $background_third_card;
 }
+img {
+  width: 280px;
+}
 </style>

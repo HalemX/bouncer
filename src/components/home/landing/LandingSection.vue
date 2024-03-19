@@ -21,7 +21,7 @@
           </div>
 
           <div
-            class="second-card card-height col-lg-4 col-md-6 position-relative overflow-hidden"
+            class="second-card card-height col-lg-4 col-md-6 position-relative overflow-hidden shadow-sm"
           >
             <LandingCard
               second-card="secondCard"

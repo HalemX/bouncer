@@ -2,7 +2,7 @@
   <div
     class="top-footer-section container mt-3 d-flex flex-wrap flex-lg-nowrap mb-5 pb-5"
   >
-    <div class="main-part w-75 me-2">
+    <div class="main-part me-2">
       <h1 class="mb-3">Bouncer</h1>
       <p>
         Lorem Ipsum is simply dummy text of the printing and typesetting
@@ -17,18 +17,16 @@
         scrambled.
       </p>
       <div class="icons d-flex align-items-center mt-4 mb-4">
-        <Icon icon="logos:facebook" width="1.7rem" class="me-5" />
+        <Icon icon="logos:facebook" width="1.7rem" class="me-3" />
         <Icon icon="logos:twitter" width="1.7rem" />
       </div>
     </div>
-    <div class="third-part">
+    <div class="third-part ms-0 ms-lg-4">
       <h4 class="mb-3">Contact Us</h4>
-      <div>
-        <span>My Company , 4578 Marmora Road, Glasgow</span>
-        <span>D04 89GR</span>
-        <span>Call us now: 0123-456-789</span>
-        <span>Email: support@whatever.com</span>
-      </div>
+      <p class="w-50">
+        My Company , 4578 Marmora Road, Glasgow D04 89GR Call us now:
+        0123-456-789 Email: support@whatever.com
+      </p>
     </div>
   </div>
 </template>
@@ -52,8 +50,22 @@ export default {
     color: $background_third_card;
   }
   @media ($min_md) {
+    width: 70%;
     p {
       width: 75%;
+    }
+  }
+}
+p,
+span {
+  color: #22262a;
+  font-family: Proxima Nova Lt;
+}
+
+@media ($max_md) {
+  .third-part {
+    p {
+      width: 100% !important;
     }
   }
 }

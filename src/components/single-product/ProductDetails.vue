@@ -70,7 +70,7 @@
     >
       <div class="counter">
         <div
-          class="counter d-flex align-items-center px-3 mb-2 mb-sm-0 justify-content-center"
+          class="counter d-flex align-items-center py-2 px-3 mb-2 mb-sm-0 justify-content-center"
         >
           <button
             class="minus d-block me-4 border-0 bg-transparent"
@@ -198,7 +198,31 @@ export default {
       color: $second_color;
       border-radius: 5px;
       cursor: pointer;
+      transition: 0.3s;
     }
   }
+}
+.counter {
+  background-color: $background_second_card_border;
+  border-radius: 5px;
+  font-size: 20px;
+  user-select: none;
+}
+@media (max-width: 460px) {
+  .counter {
+    width: 100%;
+  }
+}
+
+button {
+  transition: 0.3s;
+  cursor: pointer;
+}
+button:hover {
+  color: $second_color;
+}
+.add-cart:hover,
+.love:hover {
+  background-color: #adcfec !important;
 }
 </style>
