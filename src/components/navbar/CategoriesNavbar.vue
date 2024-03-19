@@ -75,4 +75,7 @@ export default {
     width: 100%;
   }
 }
+li {
+  width: fit-content;
+}
 </style>

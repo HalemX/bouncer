@@ -43,7 +43,9 @@
           @click="activeTab !== i + 1 ? (activeTab = i + 1) : (activeTab = 0)"
         >
           {{ item }}
-          <span class="d-inline-block ps-2 counter" v-if="i + 1 === 2">0</span>
+          <span class="d-inline-block ps-2 counter" v-if="i + 1 === 2">{{
+            singleProduct?.rating?.rate
+          }}</span>
         </li>
         <Icon
           :icon="

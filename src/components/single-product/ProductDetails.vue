@@ -90,7 +90,7 @@
           </button>
         </div>
       </div>
-      <div class="add-cart-love d-flex align-items-center">
+      <div class="add-cart-love d-flex align-items-center mt-2 mt-sm-0">
         <router-link to="/cart">
           <button
             class="add-cart d-flex align-items-center border-0 p-3 me-3 justify-content-center"
